@@ -1,29 +1,78 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+  <div id="app" class="app-container">
+    <!-- 顶部 -->
+    <van-nav-bar
+      fixed
+      title="Vue移动商城"
+    />
+    <!-- 中间路由 -->
+    <transition>
+      <router-view></router-view>
+    </transition> 
+    <!-- 底部 -->
+    <van-tabbar route>
+      <van-tabbar-item
+        replace
+        to="/home"
+        icon="wap-home"
+      >
+        首页
+      </van-tabbar-item>
+      <van-tabbar-item
+        replace
+        to="/member"
+        icon="manager-o"
+      >
+        会员
+      </van-tabbar-item>
+      <van-tabbar-item
+        replace
+        to="/shopcat"
+        icon="shopping-cart-o"
+      >
+        购物车
+      </van-tabbar-item>
+      <van-tabbar-item
+        replace
+        to="/search"
+        icon="search"
+      >
+        搜索
+      </van-tabbar-item>
+    </van-tabbar>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+export default {
+  methods: {
+    onClickLeft() {
+      Toast('返回');
     }
   }
+}
+</script>
+
+
+<style lang="scss">
+.app-container{
+  padding-top: 46px;
+  overflow-x: hidden;
+  .van-nav-bar{
+    background-color: #eee;
+  }
+}
+.v-enter{
+  opacity: 0;
+  transform: translateX(100%);
+}
+.v-leave-to{
+  opacity: 0;
+  transform: translateX(-100%);
+  position: absolute;
+}
+.v-enter-active,
+.v-leave-active{
+  transition: all 0.5s ease;
 }
 </style>
