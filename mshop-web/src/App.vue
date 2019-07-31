@@ -57,6 +57,7 @@ export default {
 <style lang="scss">
 .app-container{
   padding-top: 46px;
+  padding-bottom: 50px;
   overflow-x: hidden;
   .van-nav-bar{
     background-color: #eee;

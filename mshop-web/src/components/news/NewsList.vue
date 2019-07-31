@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="new-container">
+    <router-link tag="div" to='/' class="new-container">
         <div class="new-icon">
             <img src="https://img.yzcdn.cn/vant/apple-2.jpg" >
         </div>
@@ -8,8 +8,8 @@
             <h3>标题</h3>
             <span>发表时间：2019-07-24</span><span>点击：2</span>
         </div>
-    </div>
-    <div class="new-container">
+    </router-link>
+    <router-link tag="div" to='/' class="new-container">
         <div class="new-icon">
             <img src="https://img.yzcdn.cn/vant/apple-2.jpg" >
         </div>
@@ -17,7 +17,7 @@
             <h3>标题</h3>
             <span>发表时间：2019-07-24</span><span>点击：2</span>
         </div>
-    </div>
+    </router-link>
   </div>
 </template>
 
