@@ -4,7 +4,7 @@
       <div slot="header">
         <span>编辑总分类</span>
       </div>
-      <el-form label-width="auto" @submit.native.prevent="add">
+      <el-form label-width="auto" @submit.native.prevent="update">
         <el-form-item  label="总分类名称">
           <el-input v-model="model.name"></el-input>
         </el-form-item>
@@ -27,7 +27,7 @@ export default {
         }
     },
     methods: {
-        async add() {
+        async update() {
             const  res = await this.$http.put(`/category/${this.id}`,this.model)
             this.$message({
                 type:"success",

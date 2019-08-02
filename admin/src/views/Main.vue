@@ -17,8 +17,10 @@
               <el-menu-item index="/category/create">新建总分类</el-menu-item>
             </el-menu-item-group>
             <el-menu-item-group title="商品分类">
-              <el-menu-item index="/itemcategory/list">商品分类列表</el-menu-item>
-              <el-menu-item index="/itemcategory/create">新建商品分类</el-menu-item>
+              <el-menu-item index="/itemcategory/list">一级分类列表</el-menu-item>
+              <el-menu-item index="/itemcategory/create">新建一级分类</el-menu-item>
+              <el-menu-item index="/secondcategory/list">二级分类列表</el-menu-item>
+              <el-menu-item index="/secondcategory/create">新建二级分类</el-menu-item>
             </el-menu-item-group>
             <el-submenu index="1-4">
               <template slot="title">选项4</template>

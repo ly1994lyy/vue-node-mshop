@@ -1,12 +1,25 @@
 <template>
   <div>
     <el-card>
-      <el-form ref="form" :model="form" label-width="80px" @submit.native.prevent="add">
-        <el-form-item label="活动名称">
-          <el-input v-model="form.name"></el-input>
+      <div slot="header">
+        <span>新建一级分类分类</span>
+      </div>
+      <el-form label-width="auto" @submit.native.prevent="add">
+        <el-form-item  label="一级分类名称">
+          <el-input v-model="model.name"></el-input>
+        </el-form-item>
+        <el-form-item label="所属总分类">
+          <el-select v-model="model.category" placeholder="请选择总分类" filterable>
+            <el-option 
+              v-for="item in CategoryList"
+              :key=item._id
+              :label=item.name
+              :value=item._id>
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary">立即创建</el-button>
+          <el-button type="primary" native-type="submit">保存</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -17,13 +30,28 @@
 export default {
     data() {
         return {
-            form: {}
+            model: {},
+            CategoryList:[]
         }
     },
     methods: {
-        async addCategory() {
-            
+        async add() {
+            const  res = await this.$http.post('/itemcategory',this.model)
+            console.log(res.data)
+            this.$message({
+                type:"success",
+                message:'添加成功'
+            })
+            this.$router.push('/itemcategory/list')
+        },
+        async fetchCategory(){
+          const res = await this.$http.get('/category')
+          this.CategoryList = res.data
+          console.log(res.data)
         }
+    },
+    created () {
+      this.fetchCategory();
     },
 };
 </script>
