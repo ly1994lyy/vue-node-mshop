@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Main from '../src/views/Main.vue'
+import Home from '../src/views/Home.vue'
 import ItemCategoryList from '../src/components/Category/ItemCategoryList.vue'
 import ItemCategoryCreate from '../src/components/Category/ItemCategoryCreate.vue'
 import ItemCategoryUpdate from '../src/components/Category/ItemCategoryUpdate.vue'
@@ -11,6 +12,7 @@ import SecondCategoyList from '../src/components/Category/SecondCategoyList.vue'
 import SecondCategoyCreate from '../src/components/Category/SecondCategoyCreate.vue'
 import SecondCategoyUpdate from '../src/components/Category/SecondCategoyUpdate.vue'
 
+
 Vue.use(Router)
 
 export default new Router({
@@ -18,15 +20,10 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
-      name: 'home',
-      redirect:'/admin'
-    },
-    {
-      path:'/admin',
-      name:'main',
+      path:'/',
       component:Main,
       children:[
+        {path:'/',name:'homepage',component:Home},
         {path:'/category/list',name:'categorylist',component:CategoryList},
         {path:'/category/create',name:'categorycreate',component:CategoryCreate},
         {path:'/category/edit/:id',name:'categoryupdate',component:CategoryUpdate,props:true},
@@ -36,6 +33,12 @@ export default new Router({
         {path:'/secondcategory/list',name:'secondcategorylist',component:SecondCategoyList},
         {path:'/secondcategory/create',name:'secondcategorycreate',component:SecondCategoyCreate},
         {path:'/secondcategory/edit/:id',name:'secondcategoryupdate',component:SecondCategoyUpdate,props:true},
+        {path:'/rule/list',name:'rulelist',component:()=>import('../src/components/Rule/RuleList.vue')},
+        {path:'/rule/create',name:'rulecreate',component:()=>import('../src/components/Rule/RuleListCreate.vue')},
+        {path:'/rule/edit/:id',name:'ruleupdate',component:()=>import('../src/components/Rule/RuleUpdate.vue'),props:true},
+        {path:'/shop/list',name:'shoplist',component:()=>import('../src/components/Shop/ShopList.vue')},
+        {path:'/shop/create',name:'shopcreate',component:()=>import('../src/components/Shop/ShopCreate.vue')},
+        {path:'/shop/edit/:id',name:'shopupdate',component:()=>import('../src/components/Shop/ShopUpdate.vue'),props:true},
       ]
     },
     {

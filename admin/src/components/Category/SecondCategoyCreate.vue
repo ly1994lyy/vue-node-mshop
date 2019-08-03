@@ -48,7 +48,6 @@ export default {
   methods: {
     async add() {
       const res = await this.$http.post("/secondcategory", this.model);
-      console.log(res.data);
       this.$message({
         type: "success",
         message: "添加成功"
