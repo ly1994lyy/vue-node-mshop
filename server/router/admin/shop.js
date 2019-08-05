@@ -3,6 +3,7 @@ module.exports = app => {
     const router = express.Router()
     const Rule = require('../../models/Rule')
     const Shop = require('../../models/Shop')
+    const Good = require('../../models/Good')
 
     router.get('/rule',async (req,res)=>{
         const model = await Rule.find().lean()
@@ -54,5 +55,29 @@ module.exports = app => {
         res.send(model)
     })
 
+    router.get('/good',async (req,res)=>{
+        const model = await Good.find().lean()
+        res.send(model)
+    })
+
+    router.get('/good/:id',async (req,res)=>{
+        const model = await Good.findById(req.params.id)
+        res.send(model)
+    })
+
+    router.post('/good',async (req,res)=>{
+        const model = await Good.create(req.body)
+        res.send(model)
+    })
+
+    router.put('/good/:id',async (req,res)=>{
+        const model = await Good.findByIdAndUpdate(req.params.id,req.body)
+        res.send(model)
+    })
+
+    router.delete('/good/:id',async (req,res)=>{
+        const model = await Good.findByIdAndDelete(req.params.id)
+        res.send(model)
+    })
     app.use('/api/admin',router)
 }

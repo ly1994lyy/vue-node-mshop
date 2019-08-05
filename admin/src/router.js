@@ -39,15 +39,10 @@ export default new Router({
         {path:'/shop/list',name:'shoplist',component:()=>import('../src/components/Shop/ShopList.vue')},
         {path:'/shop/create',name:'shopcreate',component:()=>import('../src/components/Shop/ShopCreate.vue')},
         {path:'/shop/edit/:id',name:'shopupdate',component:()=>import('../src/components/Shop/ShopUpdate.vue'),props:true},
+        {path:'/good/list',name:'goodlist',component:()=>import('../src/components/Good/GoodList.vue')},
+        {path:'/good/create',name:'goodcreate',component:()=>import('../src/components/Good/GoodCreate.vue')},
+        {path:'/good/edit/:id',name:'goodupdate',component:()=>import('../src/components/Good/GoodUpdate.vue'),props:true},
       ]
     },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-    }
   ]
 })

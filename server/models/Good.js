@@ -3,8 +3,8 @@ const scheme = new mongoose.Schema({
     name:{type:String},
     describe:{type:String},
     price:{type:Number},
-    icon:[{type:String}],
-    tips:{type:String},
+    icon:[{type:Object}],
+    weight:{type:Number},
     rules:[{
         rulename:{type:mongoose.SchemaTypes.ObjectId,ref:'Rule'},
         rulebody:[{type:String}]

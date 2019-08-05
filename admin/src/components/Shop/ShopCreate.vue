@@ -48,6 +48,8 @@
             :action="$http.defaults.baseURL + '/upload'"
             list-type="picture-card"
             :on-success="afterUploadBanner"
+            :on-preview="handlePreview"
+            :on-remove="handleRemove"
           >
             <i class="el-icon-plus avatar-uploader-icon" style="line-height:100px"></i>
           </el-upload>
@@ -67,7 +69,9 @@
 export default {
     data() {
         return {
-            model: {}
+            model: {
+                banner:[]
+            },
         }
     },
     methods: {
@@ -86,8 +90,14 @@ export default {
             this.$set(this.model,'bgimg',res.url)
         },
         afterUploadBanner(res){
-            this.$set(this.model,'banner',res.url)
+          this.model.banner.push(res)
         },
+         handleRemove(file, fileList) {
+          console.log(file, fileList);
+        },
+        handlePreview(file) {
+          console.log(file);
+        }
     },
 };
 </script>

@@ -32,13 +32,10 @@
               <el-menu-item index="/rule/list">规格列表</el-menu-item>
               <el-menu-item index="/rule/create">新建规格</el-menu-item>
             </el-menu-item-group>
-            <el-menu-item-group title="分组2">
-              <el-menu-item index="2-3">选项3</el-menu-item>
+            <el-menu-item-group title="商品中心">
+              <el-menu-item index="/good/list">商品列表</el-menu-item>
+              <el-menu-item index="/good/create">新建商品</el-menu-item>
             </el-menu-item-group>
-            <el-submenu index="2-4">
-              <template slot="title">选项4</template>
-              <el-menu-item index="2-4-1">选项4-1</el-menu-item>
-            </el-submenu>
           </el-submenu>
           <el-submenu index="4">
             <template slot="title">

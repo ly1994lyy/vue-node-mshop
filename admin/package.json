@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
+    "dayjs": "^1.8.15",
     "element-ui": "^2.4.5",
     "multer": "^1.4.2",
     "vue": "^2.6.10",

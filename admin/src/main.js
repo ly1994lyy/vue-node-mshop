@@ -5,8 +5,13 @@ import router from './router'
 import './plugins/element.js'
 import http from './http'
 import '../src/sty.scss'
+import dayjs from 'dayjs'
 
 Vue.config.productionTip = false
+
+Vue.filter('dataFormat',(val)=>{
+  return dayjs(val).format("YYYY年MM月DD日")
+})
 
 Vue.prototype.$http = http
 new Vue({

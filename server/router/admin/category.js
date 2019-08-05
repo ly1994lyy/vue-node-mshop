@@ -87,6 +87,7 @@ module.exports = app => {
     app.post('/api/admin/upload',upload.single('file'),async (req,res)=>{
         const file = req.file
         file.url = `http://localhost:3000/uploads/${file.filename}`
+        console.log(file)
         res.send(file)
     })
 }

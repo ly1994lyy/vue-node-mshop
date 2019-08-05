@@ -9,6 +9,12 @@
           <el-input v-model="model.rulename"></el-input>
         </el-form-item>
         <el-form-item>
+          <el-button @click="model.rulecontent.push({})">添加规格内容</el-button>
+        </el-form-item>
+        <el-form-item v-for="(item,i) in model.rulecontent" :key="i">
+          <el-input v-model="item.rules"></el-input>
+        </el-form-item>
+        <el-form-item>
           <el-button type="primary" native-type="submit">保存</el-button>
         </el-form-item>
       </el-form>
@@ -20,7 +26,9 @@
 export default {
     data() {
         return {
-            model: {}
+            model: {
+              rulecontent:[]
+            }
         }
     },
     methods: {
