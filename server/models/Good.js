@@ -5,12 +5,13 @@ const scheme = new mongoose.Schema({
     price:{type:Number},
     icon:[{type:Object}],
     weight:{type:Number},
-    rules:[{
-        rulename:{type:mongoose.SchemaTypes.ObjectId,ref:'Rule'},
-        rulebody:[{type:String}]
-    }],
     collect:{type:Number,min:0,default:0},
-    shop:{type:mongoose.SchemaTypes.ObjectId,ref:'Shop'}
+    shop:{type:mongoose.SchemaTypes.ObjectId,ref:'Shop'},
+    rule:[{
+        rulename:{type:mongoose.SchemaTypes.ObjectId,ref:"Rule"},
+        rules:{type:String},
+        mount:{type:String}
+    }]
 })
 
 module.exports = mongoose.model('Good',scheme)

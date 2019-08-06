@@ -56,7 +56,7 @@ module.exports = app => {
     })
 
     router.get('/good',async (req,res)=>{
-        const model = await Good.find().lean()
+        const model = await Good.find().populate('shop').lean()
         res.send(model)
     })
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form label-width="auto" @submit.native.prevent="add">
+    <el-form label-width="120px" @submit.native.prevent="add">
       <el-tabs type="border-card">
         <el-tab-pane label="基础信息">
           <el-form-item label="商品名称">
@@ -38,57 +38,38 @@
           </el-form-item>
           <el-form-item label="收藏数">
             <el-input v-model="model.collect" placeholder="默认为0，不可手动改写" :disabled="true"></el-input>
-          </el-form-item>  
-          <el-button @click="model.rule.push({})">点击添加规格</el-button>
-            <el-row >
-                <el-col :span="8" v-for="(item,index) in model.rule" :key="index">
-                    <el-form-item label="选择规格">
-                        <el-select v-model="model.rule.rulename">
-                            <el-option 
-                                v-for="ruleitem in ruleList"
-                                :key="ruleitem._id"
-                                :label="ruleitem.rulename"
-                                :value="ruleitem._id"
-                            ></el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="属性">
-                        <el-select v-model="model.rule.rulecontent">
-                            <el-option 
-                                v-for="ruleitem in item.rulecontent"
-                                :key="ruleitem._id"
-                                :label="ruleitem.rulename"
-                                :value="ruleitem._id"
-                            ></el-option>
-                        </el-select>
-                    </el-form-item>
-                </el-col>
-                <!-- <el-col :span="4">
-                    <el-button @click="item.rulecontent.push({})">点击添加规格内容和数量</el-button>
-                </el-col>
-                <el-col :span="12">
-                    <el-row v-for="(iten,index) in item.rulecontent" :key="index">
-                        <el-col :span="12">
-                            <el-form-item label="规格内容">
-                                <el-input v-model="iten.rules"></el-input>
-                            </el-form-item>
-                        </el-col>
-                        <el-col :span="12">
-                            <el-form-item label="所剩数量">
-                                <el-input v-model="iten.amount"></el-input>
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
-                </el-col> -->
-            </el-row>    
+          </el-form-item>
         </el-tab-pane>
         <el-tab-pane label="添加规格">
-            
+          <el-button type="primary" @click="model.rule.push({})">点击添加规格</el-button>
+          <el-row>
+            <el-col :md="12" v-for="(item,index) in model.rule" :key="index">
+              <el-form-item label="选择规格">
+                <el-select v-model="item.rulename">
+                  <el-option
+                    v-for="ruleitem in ruleList"
+                    :key="ruleitem._id"
+                    :label="ruleitem.rulename"
+                    :value="ruleitem._id"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="规格内容">
+                <el-input v-model="item.rules"></el-input>
+              </el-form-item>
+              <el-form-item label="所剩数量">
+                <el-input v-model="item.mount"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="danger" @click="model.rule.splice(index,1)">删除此规格</el-button>
+              </el-form-item>
+            </el-col>
+          </el-row>
         </el-tab-pane>
       </el-tabs>
       <el-form-item>
-            <el-button type="primary" native-type="submit">保存</el-button>
-          </el-form-item>
+        <el-button type="primary" native-type="submit" style="margin-top:10px;margin-left:20px">保存</el-button>
+      </el-form-item>
     </el-form>
   </div>
 </template>
@@ -99,10 +80,10 @@ export default {
     return {
       model: {
         icon: [],
-        rule:[]
+        rule: []
       },
       shopList: [],
-      ruleList:[]
+      ruleList: []
     };
   },
   methods: {
@@ -131,7 +112,7 @@ export default {
   },
   created() {
     this.fetchShop();
-    this.fetchRule()
+    this.fetchRule();
   }
 };
 </script>
