@@ -9,8 +9,8 @@ module.exports = app => {
         res.send(model)
     })
 
-    router.get('/itemcategory',async(req,res)=>{
-        const model = await ItemCategory.find().populate('seccategories').lean()
+    router.get('/itemcategory/:id',async(req,res)=>{
+        const model = await ItemCategory.find({'category':req.params.id}).populate('seccategories').lean()
         res.send(model)
     })
 

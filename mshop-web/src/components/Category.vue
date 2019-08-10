@@ -7,15 +7,22 @@
     <div style="display:flex">
       <van-sidebar v-model="activeKey">
         <van-sidebar-item
-          v-for="item in categoryList"
+          v-for="(item,index) in categoryList"
           :key="item._id"
           :title="item.name"
-          @click="add"
+          @click="add(index)"
         />
       </van-sidebar>
-      <div v-for="category in itemCategoryList" :key="category.id">
-        <h2>{{category.name}}</h2>
-        
+      <div class="item-container">
+        <div v-for="item in itemCategoryList" :key="item._id">
+          <h4>{{item.name}}</h4>
+          <van-grid :border="false" :column-num="3">
+            <van-grid-item v-for="value in item.seccategories" :key="value._id">
+              <van-image :src="value.icon" />
+              <span class="item-name">{{value.name}}</span>
+            </van-grid-item>
+          </van-grid>
+        </div>
       </div>
     </div>
   </div>
@@ -27,7 +34,7 @@ export default {
     return {
       value: "",
       categoryList: [],
-      itemCategoryList:[],
+      itemCategoryList: [],
       activeKey: 0
     };
   },
@@ -36,8 +43,10 @@ export default {
       const res = await this.$http.get("/category");
       this.categoryList = res.data;
     },
-    add(index) {
-      this.itemCategoryList = this.categoryList[index].itemcategories
+    async add(index) {
+      const id = this.categoryList[index]._id;
+      const res = await this.$http.get(`/itemcategory/${id}`);
+      this.itemCategoryList = res.data;
     }
   },
   created() {
@@ -49,5 +58,19 @@ export default {
 <style lang="scss" scoped>
 .van-icon {
   font-size: 20px;
+}
+img{
+  width: 70px;
+  height: 70px;
+}
+.van-sidebar-item{
+  width: 85px;
+  height: 46px;
+}
+.item-container{
+  padding-top: 5px;
+  .item-name{
+    font-size: 12px
+  }
 }
 </style>
