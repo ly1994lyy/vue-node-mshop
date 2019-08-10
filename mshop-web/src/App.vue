@@ -1,10 +1,5 @@
 <template>
   <div id="app" class="app-container">
-    <!-- 顶部 -->
-    <van-nav-bar
-      fixed
-      title="Vue移动商城"
-    />
     <!-- 中间路由 -->
     <transition>
       <router-view></router-view>
@@ -65,12 +60,9 @@ export default {
 
 <style lang="scss">
 .app-container{
-  padding-top: 46px;
+  padding-top: 45px;
   padding-bottom: 50px;
   overflow-x: hidden;
-  .van-nav-bar{
-    background-color: #eee;
-  }
   .van-tabbar-item__icon{
     img{
       width: 60px;

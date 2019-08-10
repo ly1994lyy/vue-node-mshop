@@ -13,9 +13,9 @@ export default new Router({
       redirect:'/home',
     },
     {
-      path:'/home',
-      name:'home',
-      component:()=>import('./components/tabbar/HomeContainer.vue')
+      path:'/category',
+      name:'category',
+      component:()=>import('./components/Category.vue')
     },
     {
       path:'/home/newlist',

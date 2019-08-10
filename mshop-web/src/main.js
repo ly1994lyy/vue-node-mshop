@@ -1,10 +1,12 @@
 import Vue from 'vue'
+import './plugins/axios'
 import App from './App.vue'
 import router from './router'
 import store from './store'
 import { Button,NavBar,Tabbar,TabbarItem,Swipe, SwipeItem,Lazyload,Grid, GridItem,
-  Image,Row, Col} from 'vant';
+  Image,Row, Col,Icon,Search,Sidebar, SidebarItem } from 'vant';
 import dayjs from 'dayjs'
+import http from './http'
 
 Vue.config.productionTip = false
 import '../src/sty.scss'
@@ -20,7 +22,13 @@ Vue.use(Button)
 .use(GridItem)
 .use(Image)
 .use(Row)
-.use(Col);
+.use(Col)
+.use(Icon)
+.use(Search)
+.use(Sidebar)
+.use(SidebarItem);
+
+Vue.prototype.$http = http
 
 Vue.filter('dateFomat',(val)=>{
   return dayjs(val).format('YY-MM-DD')
