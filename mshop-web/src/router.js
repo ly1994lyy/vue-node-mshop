@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Main from '../src/views/Main'
 
 Vue.use(Router)
 
@@ -10,12 +11,34 @@ export default new Router({
     {
       path: '/',
       name: 'vhome',
-      redirect:'/home',
+      component:Main,
+      children:[
+        {
+          path: '/home',
+          name: 'home',
+          component:()=>import('./views/Home.vue')
+        },
+        {
+          path:'/category',
+          name:'category',
+          component:()=>import('./components/Category.vue')
+        },
+        {
+          path:'/shopcat',
+          name:'shopcat',
+          component:()=>import('./components/tabbar/ShopcatContainer.vue')
+        },
+      ]
     },
     {
-      path:'/category',
-      name:'category',
-      component:()=>import('./components/Category.vue')
+      path: '/login',
+      name: 'login',
+      component:()=>import('./views/Login.vue')
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component:()=>import('./views/Register.vue')
     },
     {
       path:'/home/newlist',
@@ -27,11 +50,7 @@ export default new Router({
       name:'member',
       component:()=>import('./components/tabbar/MemberContainer.vue')
     },
-    {
-      path:'/shopcat',
-      name:'shopcat',
-      component:()=>import('./components/tabbar/ShopcatContainer.vue')
-    },
+    
     {
       path:'/search',
       name:'search',
