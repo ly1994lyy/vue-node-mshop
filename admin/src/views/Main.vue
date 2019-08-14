@@ -49,10 +49,15 @@
             <el-menu-item-group title="分组2">
               <el-menu-item index="3-3">选项3</el-menu-item>
             </el-menu-item-group>
-            <el-submenu index="3-4">
-              <template slot="title">选项4</template>
-              <el-menu-item index="3-4-1">选项4-1</el-menu-item>
-            </el-submenu>
+          </el-submenu>
+          <el-submenu index="5">
+            <template slot="title">
+              <i class="el-icon-user"></i>用户中心
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="/user/list">用户列表</el-menu-item>
+              <el-menu-item index="/manger/create">管理员列表</el-menu-item>
+            </el-menu-item-group>
           </el-submenu>
         </el-menu>
       </el-aside>

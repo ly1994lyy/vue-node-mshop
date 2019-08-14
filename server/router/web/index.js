@@ -4,6 +4,7 @@ module.exports = app => {
     const Category = require('../../models/Category')
     const ItemCategory = require('../../models/ItemCategory')
     const User = require('../../models/User')
+    const jwt = require('jsonwebtoken')
 
     router.get('/category',async(req,res)=>{
         const model = await Category.find().populate('itemcategories itemcategories.seccategories').lean()
@@ -16,11 +17,26 @@ module.exports = app => {
     })
 
     router.post('/register',async(req,res)=>{
+        const model = await User.create(req.body)
         res.send(model)
     })
 
     router.post('/login',async(req,res)=>{
-        res.send(model)
+        const { username,password } = req.body
+        const user = await User.findOne({username})
+        if(!user){
+            res.status(422).send({
+                message:'用户不存在'
+            })
+        }
+        const isValid = require('bcrypt').compareSync(password,user.password)
+        if(!isValid){
+            res.status(422).send({
+                message:'密码错误'
+            })
+        }
+        const token = jwt.sign({id:user._id},app.get('secret'))
+        res.send({token})
     })
 
     app.use('/api/web',router)
