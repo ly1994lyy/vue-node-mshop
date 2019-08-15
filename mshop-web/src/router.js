@@ -28,6 +28,11 @@ export default new Router({
           name:'shopcat',
           component:()=>import('./components/tabbar/ShopcatContainer.vue')
         },
+        {
+          path:'/userinfo',
+          name:'userinfo',
+          component:()=>import('./components/UserInfo.vue')
+        },
       ]
     },
     {

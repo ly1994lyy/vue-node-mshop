@@ -35,8 +35,8 @@ module.exports = app => {
                 message:'密码错误'
             })
         }
-        const token = jwt.sign({id:user._id},app.get('secret'))
-        res.send({token})
+        const token = jwt.sign({id:user._id,username:user.username},app.get('secret'))
+        res.send({token,user})
     })
 
     app.use('/api/web',router)

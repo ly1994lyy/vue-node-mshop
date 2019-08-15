@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import jwt_decode from 'jwt-decode'
 export default {
   data() {
     return {
@@ -40,6 +41,8 @@ export default {
         password:this.password
       })
       localStorage.setItem('token',res.data.token)
+      this.$store.dispatch('setUser',res.data.user)
+      this.$store.dispatch('setToken',res.data.token)
       this.$toast.success('登录成功')
       this.$router.push('/category')
     }

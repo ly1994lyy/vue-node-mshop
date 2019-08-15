@@ -26,9 +26,17 @@
       </van-tabbar-item>
       <van-tabbar-item
         replace
-        to="/user"
+        v-if="!user"
+        to="/login"
       >
-        <img slot="icon" slot-scope="props" :src="props.active ? icon.userNormal : icon.userNormal">
+        <img slot="icon" slot-scope="props" :src="props.active ? icon.noLogin : icon.noLogin">
+      </van-tabbar-item>
+      <van-tabbar-item
+        replace
+        v-else
+        to="/userinfo"
+      >
+        <img slot="icon" slot-scope="props" :src="props.active ? icon.userActive : icon.userNormal">
       </van-tabbar-item>
     </van-tabbar>
   </div>
@@ -45,8 +53,15 @@ export default {
         categoryActive:'https://img11.360buyimg.com/jdphoto/s130x100_jfs/t1/33669/19/3432/3731/5cb48c9cEb2f5593b/060ffe532d67562b.png',
         shopCatNormal:'https://m.360buyimg.com/mobilecms/jfs/t18583/69/717127328/4407/5e47882b/5aa10ceaN649eec12.png',
         shopCatActive:'https://m.360buyimg.com/mobilecms/jfs/t18583/69/717127328/4407/5e47882b/5aa10ceaN649eec12.png',
-        userNormal:'https://m.360buyimg.com/mobilecms/jfs/t17782/11/2358895717/4684/ad19de7f/5af43af1N04ef5a16.png'
+        noLogin:'https://m.360buyimg.com/mobilecms/jfs/t17782/11/2358895717/4684/ad19de7f/5af43af1N04ef5a16.png',
+        userActive:'https://m.360buyimg.com/mobilecms/jfs/t18598/41/712219415/3756/7828621f/5aa10cf6Nbfbdc1af.png',
+        userNormal:'https://m.360buyimg.com/mobilecms/jfs/t16849/271/702371255/4462/d55edd83/5aa10cf6Nee5122a5.png'
       },
+    }
+  },
+  computed: {
+    user() {
+      return this.$store.state.user 
     }
   },
   methods: {
