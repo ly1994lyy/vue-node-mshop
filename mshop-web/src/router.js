@@ -11,6 +11,7 @@ export default new Router({
     {
       path: '/',
       name: 'vhome',
+      redirect:'/home',
       component:Main,
       children:[
         {

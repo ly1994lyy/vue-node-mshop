@@ -4,7 +4,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import { Button,NavBar,Tabbar,TabbarItem,Swipe, SwipeItem,Lazyload,Grid, GridItem,
-  Image,Row, Col,Icon,Search,Sidebar, SidebarItem,Field,CellGroup,Toast,Notify  } from 'vant';
+  Image,Row, Col,Icon,Search,Sidebar, SidebarItem,Field,CellGroup,Toast,Notify,Cell  } from 'vant';
 import dayjs from 'dayjs'
 import http from './http'
 
@@ -30,7 +30,8 @@ Vue.use(Button)
 .use(Field)
 .use(CellGroup)
 .use(Toast)
-.use(Notify);
+.use(Notify)
+.use(Cell);
 
 Vue.prototype.$http = http
 
