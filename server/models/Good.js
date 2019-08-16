@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const scheme = new mongoose.Schema({
     name:{type:String},
     describe:{type:String},
+    img:{type:String},
     price:{type:Number},
     icon:[{type:Object}],
     weight:{type:Number},
@@ -11,7 +12,10 @@ const scheme = new mongoose.Schema({
         rulename:{type:mongoose.SchemaTypes.ObjectId,ref:"Rule"},
         rules:{type:String},
         mount:{type:String}
-    }]
+    }],
+    isbanner:{type:Boolean,default:false},
+    bannerimg:{type:String},
+    category:{type:mongoose.SchemaTypes.ObjectId,ref:'SecondCategory'}
 })
 
 module.exports = mongoose.model('Good',scheme)

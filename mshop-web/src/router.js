@@ -25,16 +25,16 @@ export default new Router({
           component:()=>import('./components/Category.vue')
         },
         {
-          path:'/shopcat',
-          name:'shopcat',
-          component:()=>import('./components/tabbar/ShopcatContainer.vue')
-        },
-        {
           path:'/userinfo',
           name:'userinfo',
           component:()=>import('./components/UserInfo.vue')
         },
       ]
+    },
+    {
+      path:'/shopcat',
+      name:'shopcat',
+      component:()=>import('./components/tabbar/ShopcatContainer.vue')
     },
     {
       path: '/login',
@@ -47,28 +47,16 @@ export default new Router({
       component:()=>import('./views/Register.vue')
     },
     {
-      path:'/home/newlist',
-      name:'newlist',
-      component:()=>import('./components/news/NewsList.vue')
+      path:'/category/:id',
+      name:'categorylist',
+      component:()=>import('./views/CategoryList.vue'),
+      props:true
     },
     {
-      path:'/member',
-      name:'member',
-      component:()=>import('./components/tabbar/MemberContainer.vue')
-    },
-    
-    {
-      path:'/search',
-      name:'search',
-      component:()=>import('./components/tabbar/SearchContainer.vue')
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      path:'/product/:id',
+      name:'product',
+      component:()=>import('./views/Product.vue'),
+      props:true
     }
   ]
 })

@@ -9,6 +9,17 @@
           <el-form-item label="商品简介">
             <el-input v-model="model.describe"></el-input>
           </el-form-item>
+          <el-form-item label="商品缩略图">
+          <el-upload
+            class="avatar-uploader"
+            :action="$http.defaults.baseURL + '/upload'"
+            :show-file-list="false"
+            :on-success="imgUpload"
+          >
+            <img v-if="model.img" :src="model.img" class="avatar" />
+            <i v-else class="el-icon-plus avatar-uploader-icon" style="line-height:100px"></i>
+          </el-upload>
+        </el-form-item>
           <el-form-item label="商品价格">
             <el-input v-model="model.price"></el-input>
           </el-form-item>
@@ -16,6 +27,16 @@
             <el-select v-model="model.shop">
               <el-option
                 v-for="item in shopList"
+                :key="item._id"
+                :label="item.name"
+                :value="item._id"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="所属分类">
+            <el-select v-model="model.category">
+              <el-option
+                v-for="item in categoryList"
                 :key="item._id"
                 :label="item.name"
                 :value="item._id"
@@ -39,6 +60,20 @@
           </el-form-item>
           <el-form-item label="收藏数">
             <el-input v-model="model.collect" placeholder="默认为0，不可手动改写" :disabled="true"></el-input>
+          </el-form-item>
+          <el-form-item label="是否在首页轮播">
+            <el-switch v-model="model.isbanner" active-color="#13ce66" inactive-color="#eee"></el-switch>
+          </el-form-item>
+          <el-form-item label='首页轮播图片' v-if="model.isbanner">
+            <el-upload
+              class="avatar-uploader"
+              :action="$http.defaults.baseURL + '/upload'"
+              :show-file-list="false"
+              :on-success="afterUpload"
+            >
+              <img v-if="model.bannerimg" :src="model.bannerimg" class="avatar" />
+              <i v-else class="el-icon-plus avatar-uploader-icon" style="line-height:100px"></i>
+            </el-upload>
           </el-form-item>
         </el-tab-pane>
         <el-tab-pane label="添加规格">
@@ -84,7 +119,8 @@ export default {
         rule: []
       },
       shopList: [],
-      ruleList: []
+      ruleList: [],
+      categoryList:[]
     };
   },
   props:{
@@ -109,6 +145,10 @@ export default {
         const res = await this.$http.get(`/good/${this.id}`)
         this.model = res.data
     },
+    async fetchCategory() {
+      const res = await this.$http.get("/secondcategory");
+      this.categoryList = res.data;
+    },
     async fetchShop() {
       const res = await this.$http.get("/shop");
       this.shopList = res.data;
@@ -116,12 +156,16 @@ export default {
     async fetchRule() {
       const res = await this.$http.get("/rule");
       this.ruleList = res.data;
+    },
+    imgUpload(res){
+        this.$set(this.model,'img',res.url)
     }
   },
   created() {
     this.fetch();
     this.fetchShop();
     this.fetchRule();
+    this.fetchCategory()
   }
 };
 </script>

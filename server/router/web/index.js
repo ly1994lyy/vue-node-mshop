@@ -3,6 +3,8 @@ module.exports = app => {
     const router = express.Router()
     const Category = require('../../models/Category')
     const ItemCategory = require('../../models/ItemCategory')
+    const SecCategory = require('../../models/SecondCategory')
+    const Good = require('../../models/Good')
     const User = require('../../models/User')
     const jwt = require('jsonwebtoken')
 
@@ -13,6 +15,16 @@ module.exports = app => {
 
     router.get('/itemcategory/:id',async(req,res)=>{
         const model = await ItemCategory.find({'category':req.params.id}).populate('seccategories').lean()
+        res.send(model)
+    })
+
+    router.get('/secondcategory/:id',async(req,res)=>{
+        const model = await SecCategory.findById(req.params.id).populate('goods goods.shop').lean()
+        res.send(model)
+    })
+
+    router.get('/good/:id',async(req,res)=>{
+        const model = await Good.findById(req.params.id).lean()
         res.send(model)
     })
 

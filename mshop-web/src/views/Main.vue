@@ -5,7 +5,7 @@
       <router-view></router-view>
     </transition> 
     <!-- 底部 -->
-    <van-tabbar route>
+    <van-tabbar route fixed>
       <van-tabbar-item
         replace
         to="/home"
