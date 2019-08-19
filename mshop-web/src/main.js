@@ -5,7 +5,7 @@ import router from './router'
 import store from './store'
 import { Button,NavBar,Tabbar,TabbarItem,Swipe, SwipeItem,Lazyload,Grid, GridItem,
   Image,Row, Col,Icon,Search,Sidebar, SidebarItem,Field,CellGroup,Toast,Notify,Cell,Card,
-  Tag,Panel,GoodsAction,GoodsActionIcon,GoodsActionButton  } from 'vant';
+  Tag,Panel,GoodsAction,GoodsActionIcon,GoodsActionButton,Sku   } from 'vant';
 import dayjs from 'dayjs'
 import http from './http'
 
@@ -38,7 +38,8 @@ Vue.use(Button)
 .use(Panel)
 .use(GoodsAction)
 .use(GoodsActionButton)
-.use(GoodsActionIcon);
+.use(GoodsActionIcon)
+.use(Sku);
 
 Vue.prototype.$http = http
 
