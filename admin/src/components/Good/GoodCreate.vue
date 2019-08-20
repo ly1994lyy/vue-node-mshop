@@ -75,28 +75,25 @@
             </el-upload>
           </el-form-item>
         </el-tab-pane>
-        <el-tab-pane label="添加规格">
-          <el-button type="primary" @click="model.rule.push({})">点击添加规格</el-button>
+        <el-tab-pane label="商品规格">
+          <el-button type="primary" @click="model.sku.tree.push({})">点击添加规格</el-button>
           <el-row>
-            <el-col :md="12" v-for="(item,index) in model.rule" :key="index">
+            <el-col :md="12" v-for="(item,index) in model.sku.tree" :key="index">
               <el-form-item label="选择规格">
-                <el-select v-model="item.rulename">
+                <el-input v-model="item.k"></el-input>
+              </el-form-item>
+              <el-form-item label="选择规格值">
+                <el-select v-model="item.v" multiple >
                   <el-option
-                    v-for="ruleitem in ruleList"
-                    :key="ruleitem._id"
-                    :label="ruleitem.rulename"
-                    :value="ruleitem._id"
+                    v-for="ruleitems in ruleItemList"
+                    :key="ruleitems._id"
+                    :label="ruleitems.name"
+                    :value="ruleitems._id"
                   ></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="规格内容">
-                <el-input v-model="item.rules"></el-input>
-              </el-form-item>
-              <el-form-item label="所剩数量">
-                <el-input v-model="item.mount"></el-input>
-              </el-form-item>
               <el-form-item>
-                <el-button type="danger" @click="model.rule.splice(index,1)">删除此规格</el-button>
+                <el-button type="danger" @click="model.sku.tree.splice(index,1)">删除此规格</el-button>
               </el-form-item>
             </el-col>
           </el-row>
@@ -116,10 +113,14 @@ export default {
       model: {
         icon: [],
         rule: [],
+        sku:{
+          tree:[],
+        },
         isbanner: false
       },
       shopList: [],
       ruleList: [],
+      ruleItemList:[],
       categoryList:[]
     };
   },
@@ -150,6 +151,10 @@ export default {
       const res = await this.$http.get("/rule");
       this.ruleList = res.data;
     },
+    async fetchRuleItem() {
+      const res = await this.$http.get("/ruleitem");
+      this.ruleItemList = res.data;
+    },
     afterUpload(res){
         this.$set(this.model,'bannerimg',res.url)
     },
@@ -160,6 +165,7 @@ export default {
   created() {
     this.fetchShop();
     this.fetchRule();
+    this.fetchRuleItem();
     this.fetchCategory()
   }
 };

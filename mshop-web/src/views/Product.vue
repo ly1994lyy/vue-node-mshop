@@ -35,7 +35,7 @@
       <van-cell title="选择规格" @click="skuStart" is-link />
       <van-sku 
         v-model="show" 
-        :sku="sku" 
+        :sku="model.sku" 
         :goods="goods" 
         :goods-id="model._id" 
       />

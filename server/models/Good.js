@@ -8,17 +8,12 @@ const scheme = new mongoose.Schema({
     weight:{type:Number},
     collect:{type:Number,min:0,default:0},
     shop:{type:mongoose.SchemaTypes.ObjectId,ref:'Shop'},
-    rule:[{
-        rulename:{type:mongoose.SchemaTypes.ObjectId,ref:"Rule"},
-        rules:{type:String},
-        mount:{type:String}
-    }],
     isbanner:{type:Boolean,default:false},
     bannerimg:{type:String},
     category:{type:mongoose.SchemaTypes.ObjectId,ref:'SecondCategory'},
     sku:{
         tree:[{
-            k:{type:mongoose.SchemaTypes.ObjectId,ref:"Rule"},
+            k:{type:String},
             v:[{type:mongoose.SchemaTypes.ObjectId,ref:"RuleItem"}],
             k_s:{type:String}
         }],
