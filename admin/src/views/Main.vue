@@ -31,6 +31,8 @@
               <template slot="title">商品规格</template>
               <el-menu-item index="/rule/list">规格列表</el-menu-item>
               <el-menu-item index="/rule/create">新建规格</el-menu-item>
+              <el-menu-item index="/ruleitem/list">规格值列表</el-menu-item>
+              <el-menu-item index="/ruleitem/create">新建规格值</el-menu-item>
             </el-menu-item-group>
             <el-menu-item-group title="商品中心">
               <el-menu-item index="/good/list">商品列表</el-menu-item>

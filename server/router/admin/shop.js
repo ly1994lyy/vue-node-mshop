@@ -4,6 +4,7 @@ module.exports = app => {
     const Rule = require('../../models/Rule')
     const Shop = require('../../models/Shop')
     const Good = require('../../models/Good')
+    const RuleItem = require('../../models/RuleItem')
 
     router.get('/rule',async (req,res)=>{
         const model = await Rule.find().lean()
@@ -27,6 +28,31 @@ module.exports = app => {
 
     router.delete('/rule/:id',async (req,res)=>{
         const model = await Rule.findByIdAndDelete(req.params.id)
+        res.send(model)
+    })
+
+    router.get('/ruleitem',async (req,res)=>{
+        const model = await RuleItem.find().lean()
+        res.send(model)
+    })
+
+    router.get('/ruleitem/:id',async (req,res)=>{
+        const model = await RuleItem.findById(req.params.id)
+        res.send(model)
+    })
+
+    router.post('/ruleitem',async (req,res)=>{
+        const model = await RuleItem.create(req.body)
+        res.send(model)
+    })
+
+    router.put('/ruleitem/:id',async (req,res)=>{
+        const model = await RuleItem.findByIdAndUpdate(req.params.id,req.body)
+        res.send(model)
+    })
+
+    router.delete('/ruleitem/:id',async (req,res)=>{
+        const model = await RuleItem.findByIdAndDelete(req.params.id)
         res.send(model)
     })
 

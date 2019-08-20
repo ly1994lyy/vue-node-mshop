@@ -99,31 +99,15 @@ export default {
                 imgUrl: "https://img.yzcdn.cn/2.jpg"
               }
             ],
-            k_s: "s1" // skuKeyStr：sku 组合列表（下方 list）中当前类目对应的 key 值，value 值会是从属于当前类目的一个规格值 id
-          },
-          {
-            k: "版本", // skuKeyName：规格类目名称
-            v: [
-              {
-                id: "232", // skuValueId：规格值 id
-                name: "国行", // skuValueName：规格值名称
-                imgUrl: "https://img.yzcdn.cn/1.jpg" // 规格类目图片，只有第一个规格类目可以定义图片
-              },
-              {
-                id: "23445",
-                name: "美版",
-                imgUrl: "https://img.yzcdn.cn/2.jpg"
-              }
-            ],
-            k_s: "s2" // skuKeyStr：sku 组合列表（下方 list）中当前类目对应的 key 值，value 值会是从属于当前类目的一个规格值 id
+            k_s: "m1" // skuKeyStr：sku 组合列表（下方 list）中当前类目对应的 key 值，value 值会是从属于当前类目的一个规格值 id
           }
         ],
         // 所有 sku 的组合列表，比如红色、M 码为一个 sku 组合，红色、S 码为另一个组合
         list: [
           {
             id: 2259, // skuId，下单时后端需要
-            price: 100, // 价格（单位分）
-            s1: "1215", // 规格类目 k_s 为 s1 的对应规格值 id
+            price: 10000000, // 价格（单位分）
+            m1: "1215", // 规格类目 k_s 为 s1 的对应规格值 id
             s2: "232",// 规格类目 k_s 为 s2 的对应规格值 id
             s3: "0", // 最多包含3个规格值，为0表示不存在该规格
             stock_num: 110 // 当前 sku 组合对应的库存
@@ -153,6 +137,8 @@ export default {
     },
     skuStart() {
       this.show = true
+      const ad = this.model.rule
+      console.log(ad)
     }
   },
   created() {

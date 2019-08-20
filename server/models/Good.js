@@ -15,7 +15,21 @@ const scheme = new mongoose.Schema({
     }],
     isbanner:{type:Boolean,default:false},
     bannerimg:{type:String},
-    category:{type:mongoose.SchemaTypes.ObjectId,ref:'SecondCategory'}
+    category:{type:mongoose.SchemaTypes.ObjectId,ref:'SecondCategory'},
+    sku:{
+        tree:[{
+            k:{type:mongoose.SchemaTypes.ObjectId,ref:"Rule"},
+            v:[{type:mongoose.SchemaTypes.ObjectId,ref:"RuleItem"}],
+            k_s:{type:String}
+        }],
+        list:[{
+            price:{type:Number},
+            s1:{type:mongoose.SchemaTypes.ObjectId,ref:'Good'},
+            s2:{type:mongoose.SchemaTypes.ObjectId,ref:'Good'},
+            s3:{type:mongoose.SchemaTypes.ObjectId,ref:'Good'},
+            stock_num:{type:Number}
+        }]
+    }
 })
 
 module.exports = mongoose.model('Good',scheme)

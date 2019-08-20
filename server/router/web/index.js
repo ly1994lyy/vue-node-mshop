@@ -24,7 +24,7 @@ module.exports = app => {
     })
 
     router.get('/good/:id',async(req,res)=>{
-        const model = await Good.findById(req.params.id).populate('shop').lean()
+        const model = await Good.findById(req.params.id).populate('shop rule.rulename').lean()
         res.send(model)
     })
 
