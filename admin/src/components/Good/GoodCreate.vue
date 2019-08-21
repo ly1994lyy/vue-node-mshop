@@ -76,7 +76,7 @@
           </el-form-item>
         </el-tab-pane>
         <el-tab-pane label="商品规格">
-          <el-button type="primary" @click="model.sku.tree.push({})">点击添加规格</el-button>
+          <el-button type="primary" @click="addTree">点击添加规格</el-button>
           <el-row>
             <el-col :md="12" v-for="(item,index) in model.sku.tree" :key="index">
               <el-form-item label="选择规格">
@@ -92,8 +92,63 @@
                   ></el-option>
                 </el-select>
               </el-form-item>
+              <el-form-item label="组合Id">
+                <el-select v-model="item.k_s">
+                  <el-option
+                    v-for="(ksid,i) in kslist"
+                    :key="i"
+                    :label="ksid"
+                    :value="ksid"
+                  >
+                  </el-option>
+                </el-select>
+              </el-form-item>
               <el-form-item>
                 <el-button type="danger" @click="model.sku.tree.splice(index,1)">删除此规格</el-button>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-button type="primary" v-show="model.sku.tree.length" @click="model.sku.list.push({})">点击添加详细规格</el-button>
+          <el-row>
+            <el-col :md="12" v-for="(item,index) in model.sku.list" :key="index">
+              <el-form-item label="s1选择">
+                <el-select v-model="item.s1">
+                  <el-option
+                    v-for="s1item in ruleItemList"
+                    :key="s1item.id"
+                    :label="s1item.name"
+                    :value="s1item.id"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="s2选择">
+                <el-select v-model="item.s2">
+                  <el-option
+                    v-for="s1item in ruleItemList"
+                    :key="s1item.id"
+                    :label="s1item.name"
+                    :value="s1item.id"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="s3选择">
+                <el-select v-model="item.s3">
+                  <el-option
+                    v-for="s1item in ruleItemList"
+                    :key="s1item.id"
+                    :label="s1item.name"
+                    :value="s1item.id"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="价格">
+                <el-input v-model="item.price"></el-input>
+              </el-form-item>
+              <el-form-item label="库存">
+                <el-input v-model="item.stock_num"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="danger" @click="model.sku.list.splice(index,1)">删除此规格</el-button>
               </el-form-item>
             </el-col>
           </el-row>
@@ -115,13 +170,14 @@ export default {
         rule: [],
         sku:{
           tree:[],
+          list:[]
         },
         isbanner: false
       },
       shopList: [],
-      ruleList: [],
       ruleItemList:[],
-      categoryList:[]
+      categoryList:[],
+      kslist:["s1","s2","s3"]
     };
   },
   methods: {
@@ -132,6 +188,16 @@ export default {
         message: "添加成功"
       });
       this.$router.push("/good/list");
+    },
+    addTree(){
+      if(this.model.sku.tree.length<3){
+        this.model.sku.tree.push({})
+      }else{
+        this.$message({
+          type:'error',
+          message:'最多只能添加三个规格'
+        })
+      }
     },
     afterUploadBanner(res) {
       this.model.icon.push(res);
@@ -147,10 +213,6 @@ export default {
       const res = await this.$http.get("/secondcategory");
       this.categoryList = res.data;
     },
-    async fetchRule() {
-      const res = await this.$http.get("/rule");
-      this.ruleList = res.data;
-    },
     async fetchRuleItem() {
       const res = await this.$http.get("/ruleitem");
       this.ruleItemList = res.data;
@@ -164,7 +226,6 @@ export default {
   },
   created() {
     this.fetchShop();
-    this.fetchRule();
     this.fetchRuleItem();
     this.fetchCategory()
   }
