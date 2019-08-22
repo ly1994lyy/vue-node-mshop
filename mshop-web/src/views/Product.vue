@@ -28,7 +28,7 @@
       </van-cell>
       <van-cell class="goods-express">
         <van-col span="20">运费:免运费</van-col>
-        <van-col span="4">剩余:19</van-col>
+        <van-col span="4">剩余:{{model.sku.stock_num}}</van-col>
       </van-cell>
     </van-cell-group>
     <van-cell-group class="goods-cell-group">
@@ -36,8 +36,10 @@
       <van-sku 
         v-model="show" 
         :sku="model.sku" 
-        :goods="goods" 
-       
+        :goods="model.goods"
+        :goods-id="model._id"
+        :hide-stock="model.sku.hide_stock"
+        @add-cart="onAddCartClicked"
       />
     </van-cell-group>
     <van-cell-group class="goods-cell-group">
@@ -55,7 +57,7 @@
     </van-nav-bar>
     <van-goods-action>
       <van-goods-action-icon icon="chat-o" text="客服" />
-      <van-goods-action-icon info="5" icon="cart-o" text="购物车" />
+      <van-goods-action-icon :info="shopCarInfo" icon="cart-o" text="购物车" />
       <van-goods-action-icon
         v-if="isStar"
         @click="star"
@@ -78,25 +80,26 @@ export default {
   },
   data() {
     return {
-      model: {},
+      model: {
+        sku:{
+          stock_num:0,
+          tree:[{
+            k:'',
+            v:[{
+              name:''
+            }]
+          }]
+        }
+      },
+      goods_id: '946755', 
       isStar: false,
       show: false,
-      sku: {  
-        tree: [],
-        list: [],   
-        price: "1.00", // 默认价格（单位元）
-        stock_num: 227, // 商品总库存
-        collection_id: 2261, // 无规格商品 skuId 取 collection_id，否则取所选 sku 组合对应的 id
-        none_sku: false, // 是否无规格商品
-        hide_stock: false // 是否隐藏剩余库存
-      },
-      goods: {
-        // 商品标题
-        title: "Iphone XR",
-        // 默认商品 sku 缩略图
-        picture: "//img.alicdn.com/imgextra/i2/1776456424/O1CN01ZIL5ue1xKEreAcTjx_!!0-item_pic.jpg_200x200Q50s50.jpg"
-      }
     };
+  },
+  computed: {
+    shopCarInfo() {
+      return this.$store.state.shopcar.length
+    }
   },
   methods: {
     async fetch() {
@@ -110,7 +113,7 @@ export default {
           v:item.v.map(i=>{
             return {
               id:i._id,
-              name:i.name
+              name:i.name,
             }
           })
         }
@@ -134,8 +137,13 @@ export default {
     },
     skuStart() {
       this.show = true
-      const ad = this.model.rule
-      console.log(ad)
+    },
+    onAddCartClicked(skuData) {
+      skuData.isSelect = true
+      console.log(skuData)
+      this.$store.dispatch('setShopCar',skuData)
+      this.$notify('成功加入购物车');
+      this.show = false
     }
   },
   created() {

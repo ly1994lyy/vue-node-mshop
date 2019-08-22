@@ -19,6 +19,7 @@
         <img slot="icon" slot-scope="props" :src="props.active ? icon.categoryActive : icon.categoryNormal">
       </van-tabbar-item>
       <van-tabbar-item
+        :info=shopCarInfo
         replace
         to="/shopcat"
       >
@@ -62,6 +63,9 @@ export default {
   computed: {
     user() {
       return this.$store.state.user 
+    },
+    shopCarInfo() {
+      return this.$store.state.shopcar.length
     }
   },
   methods: {

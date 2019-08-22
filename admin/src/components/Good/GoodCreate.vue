@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form label-width="120px" @submit.native.prevent="add">
+    <el-form label-width="130px" @submit.native.prevent="add">
       <el-tabs type="border-card">
         <el-tab-pane label="基础信息">
           <el-form-item label="商品名称">
@@ -76,6 +76,32 @@
           </el-form-item>
         </el-tab-pane>
         <el-tab-pane label="商品规格">
+          <el-form-item label="卡片默认标题">
+            <el-input v-model="model.goods.title"></el-input>
+          </el-form-item>
+          <el-form-item label='卡片默认图片'>
+            <el-upload
+              class="avatar-uploader"
+              :action="$http.defaults.baseURL + '/upload'"
+              :show-file-list="false"
+              :on-success="goodsPicture"
+            >
+              <img v-if="model.goods.picture" :src="model.goods.picture" class="avatar" />
+              <i v-else class="el-icon-plus avatar-uploader-icon" style="line-height:100px"></i>
+            </el-upload>
+          </el-form-item>
+          <el-form-item label="卡片默认价格">
+            <el-input v-model="model.sku.price"></el-input>
+          </el-form-item>
+          <el-form-item label="总库存量">
+            <el-input v-model="model.sku.stock_num"></el-input>
+          </el-form-item>
+          <el-form-item label="是否无规格商品">
+            <el-switch v-model="model.sku.none_sku" active-color="#13ce66" inactive-color="#eee"></el-switch>
+          </el-form-item>
+          <el-form-item label="是否隐藏剩余库存">
+            <el-switch v-model="model.sku.hide_stock" active-color="#13ce66" inactive-color="#eee"></el-switch>
+          </el-form-item>
           <el-button type="primary" @click="addTree">点击添加规格</el-button>
           <el-row>
             <el-col :md="12" v-for="(item,index) in model.sku.tree" :key="index">
@@ -115,9 +141,9 @@
                 <el-select v-model="item.s1">
                   <el-option
                     v-for="s1item in ruleItemList"
-                    :key="s1item.id"
+                    :key="s1item._id"
                     :label="s1item.name"
-                    :value="s1item.id"
+                    :value="s1item._id"
                   ></el-option>
                 </el-select>
               </el-form-item>
@@ -125,9 +151,9 @@
                 <el-select v-model="item.s2">
                   <el-option
                     v-for="s1item in ruleItemList"
-                    :key="s1item.id"
+                    :key="s1item._id"
                     :label="s1item.name"
-                    :value="s1item.id"
+                    :value="s1item._id"
                   ></el-option>
                 </el-select>
               </el-form-item>
@@ -135,9 +161,9 @@
                 <el-select v-model="item.s3">
                   <el-option
                     v-for="s1item in ruleItemList"
-                    :key="s1item.id"
+                    :key="s1item._id"
                     :label="s1item.name"
-                    :value="s1item.id"
+                    :value="s1item._id"
                   ></el-option>
                 </el-select>
               </el-form-item>
@@ -167,10 +193,13 @@ export default {
     return {
       model: {
         icon: [],
-        rule: [],
         sku:{
           tree:[],
           list:[]
+        },
+        goods:{
+          title:'',
+          picture:''
         },
         isbanner: false
       },
@@ -204,6 +233,9 @@ export default {
     },
     handleRemove(file, fileList) {
       console.log(file, fileList);
+    },
+    goodsPicture(res){
+      this.$set(this.model.goods,'picture',res.url)
     },
     async fetchShop() {
       const res = await this.$http.get("/shop");
