@@ -25,12 +25,28 @@ module.exports = app => {
 
     router.get('/good/:id',async(req,res)=>{
         const model = await Good.findById(req.params.id).populate('shop rule.rulename sku.tree.v').lean()
+        console.log(req.params.id)
         res.send(model)
     })
 
     router.post('/register',async(req,res)=>{
         const model = await User.create(req.body)
         res.send(model)
+    })
+
+    router.get('/shopcarlist/:ids',async (req,res)=>{
+        // let shopCarList = []
+        // req.params.ids.map(async item=>{
+        //     const model = await Good.findById(item).populate('shop rule.rulename sku.tree.v').lean()
+        //     shopCarList.push(model)
+        // })
+        // res.send(shopCarList)
+        const shopList = req.params.ids.split(',')
+        const sCar = shopList.map(async item=>{
+            return item
+            
+        })
+        res.send(sCar)
     })
 
     router.post('/login',async(req,res)=>{

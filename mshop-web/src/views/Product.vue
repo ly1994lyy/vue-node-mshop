@@ -57,7 +57,7 @@
     </van-nav-bar>
     <van-goods-action>
       <van-goods-action-icon icon="chat-o" text="客服" />
-      <van-goods-action-icon :info="shopCarInfo" icon="cart-o" text="购物车" />
+      <van-goods-action-icon :info="shopCarInfo" to='/shopcar' icon="cart-o" text="购物车" />
       <van-goods-action-icon
         v-if="isStar"
         @click="star"
@@ -99,6 +99,9 @@ export default {
   computed: {
     shopCarInfo() {
       return this.$store.state.shopcar.length
+    },
+    user() {
+      return this.$store.state.user
     }
   },
   methods: {

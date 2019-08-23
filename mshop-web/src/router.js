@@ -17,7 +17,7 @@ export default new Router({
         {
           path: '/home',
           name: 'home',
-          component:()=>import('./views/Home.vue')
+          component:()=>import('./components/Home.vue')
         },
         {
           path:'/category',
@@ -32,9 +32,9 @@ export default new Router({
       ]
     },
     {
-      path:'/shopcat',
+      path:'/shopcar',
       name:'shopcat',
-      component:()=>import('./components/tabbar/ShopcatContainer.vue')
+      component:()=>import('./views/ShopCar.vue')
     },
     {
       path: '/login',

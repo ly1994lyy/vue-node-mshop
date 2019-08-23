@@ -3,10 +3,12 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+const car = JSON.parse(localStorage.getItem('shopcar') || '[]')
+
 const state = {
   token:'',
   user:{},
-  shopcar:[]
+  shopcar:car
 }
 
 const getters = {
@@ -32,6 +34,8 @@ const mutations = {
     if(!flag){
       state.shopcar.push(shopcar)
     }
+    //存储到本地
+    localStorage.setItem('shopcar',JSON.stringify(state.shopcar))
   }
 }
 
