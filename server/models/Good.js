@@ -19,9 +19,9 @@ const scheme = new mongoose.Schema({
         }],
         list:[{
             price:{type:Number},
-            s1:{type:mongoose.SchemaTypes.ObjectId,ref:'Good'},
-            s2:{type:mongoose.SchemaTypes.ObjectId,ref:'Good'},
-            s3:{type:mongoose.SchemaTypes.ObjectId,ref:'Good'},
+            s1:{type:mongoose.SchemaTypes.ObjectId,ref:'RuleItem'},
+            s2:{type:mongoose.SchemaTypes.ObjectId,ref:'RuleItem'},
+            s3:{type:mongoose.SchemaTypes.ObjectId,ref:'RuleItem'},
             stock_num:{type:Number}
         }],
         price: {type:Number}, // 默认价格（单位元）

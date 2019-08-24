@@ -35,17 +35,11 @@ module.exports = app => {
     })
 
     router.get('/shopcarlist/:ids',async (req,res)=>{
-        // let shopCarList = []
-        // req.params.ids.map(async item=>{
-        //     const model = await Good.findById(item).populate('shop rule.rulename sku.tree.v').lean()
-        //     shopCarList.push(model)
-        // })
-        // res.send(shopCarList)
         const shopList = req.params.ids.split(',')
-        const sCar = shopList.map(async item=>{
-            return item
-            
-        })
+        let sCar=[]
+        for(let i=0;i<shopList.length;i++){
+            sCar.push(await Good.findById(shopList[i]).populate('shop rule.rulename sku.tree.v sku.list.s1 sku.list.s2 sku.list.s3').lean())
+        }
         res.send(sCar)
     })
 
