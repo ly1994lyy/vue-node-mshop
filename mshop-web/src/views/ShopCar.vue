@@ -17,23 +17,9 @@
       >登录</van-button>
     </div>
     <div v-else class="shopcar-container">
-      <!-- <van-card
-        v-for="item in model"
-        :key="item.select._id"
-        :num="item.selectedNum"
-        :price="item.select.price"
-        :title="item.goodname"
-        :thumb="item.image"
-      >
-        <div slot="desc" class="desc-container">
-          <p v-if="item.select[0].s1">{{item.select[0].s1.name}}</p>
-          <p v-if="item.select[0].s2">{{item.select[0].s2.name}}</p>
-          <p v-if="item.select[0].s3">{{item.select[0].s3.name}}</p>
-        </div>
-      </van-card> -->
       <van-cell-group>
-        <van-cell v-for="item in model" :key="item.select._id">
-          <van-switch v-model="item.isTrued" size="14px" />
+        <van-cell v-for="(item,i) in model" ref="shopcarvell" :key="item.select._id">
+          <van-switch v-model="shopcar[i].isSelect" size="14px" @change="updateSelect" />
           <img :src="item.image" />
           <div class="good-content">
             <div class="good-title">{{item.goodname}}</div>
@@ -43,14 +29,14 @@
               <p v-if="item.select[0].s3">{{item.select[0].s3.name}}</p>
             </div>
             <div class="good-select"> 
-              <p class="good-price">￥{{item.select[0].price}}</p>
-              <p class="good-num">x {{item.selectedNum}}</p>
+              <p class="good-price">￥{{shopcar[i].selectedSkuComb.price/100}}</p>
+              <p class="good-num">x {{shopcar[i].selectedNum}}</p>
             </div>
           </div>
         </van-cell>
       </van-cell-group>
     </div>
-    <van-submit-bar :price="3050" button-text="提交订单" @submit="onSubmit" />
+    <van-submit-bar :price="priceSub" button-text="提交订单" @submit="onSubmit" />
   </div>
 </template>
 
@@ -60,39 +46,44 @@ export default {
     return {
       model: [],
       ids: [],
-      checked: true
     };
   },
   methods: {
     async getShopCar() {
-      const shopcar = this.$store.state.shopcar;
       var carList = [];
-      shopcar.map(item => {
+      this.shopcar.map(item => {
         carList.push(item.goodsId);
       });
       this.ids = carList;
       const res = await this.$http.get(`/shopcarlist/${this.ids}`);
-      for (let i = 0; i < shopcar.length; i++) {
+      for (let i = 0; i < this.shopcar.length; i++) {
         let shopCarList = {};
         shopCarList.goodname = res.data[i].name;
         shopCarList.select = res.data[i].sku.list.filter(item => {
-          return item._id == shopcar[i].selectedSkuComb.id;
+          return item._id == this.shopcar[i].selectedSkuComb.id;
         });
-        shopCarList.selectedNum = shopcar[i].selectedNum;
-        shopCarList.isTrued = shopcar[i].isSelect;
         shopCarList.image = res.data[i].img;
-        shopCarList.id = shopcar[i].goodsId;
         this.model.push(shopCarList);
       }
-      console.log(this.model);
+      console.log(this.model)
     },
     onSubmit() {
       console.log(this.user);
+    },
+    updateSelect() {
+      this.$store.dispatch('updateShopCar',this.shopcar)
     }
   },
   computed: {
     user() {
       return this.$store.state.user;
+    },
+    shopcar() {
+      return this.$store.state.shopcar
+      console.log(this.shopcar)
+    },
+    priceSub() {
+      return this.$store.getters.priceSub
     }
   },
   created() {

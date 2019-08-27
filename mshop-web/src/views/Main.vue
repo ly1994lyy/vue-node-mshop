@@ -21,7 +21,7 @@
       <van-tabbar-item
         :info=shopCarInfo
         replace
-        to="/shopcat"
+        to="/shopcar"
       >
         <img slot="icon" slot-scope="props" :src="props.active ? icon.shopCatNormal : icon.shopCatNormal">
       </van-tabbar-item>

@@ -8,6 +8,7 @@ const scheme = new mongoose.Schema({
             return require('bcrypt').hashSync(val,10)
         }
     },
+    address:[{type:String}],
     myCollect:[{type:mongoose.SchemaTypes.ObjectId,ref:'Good'}]
 })
 

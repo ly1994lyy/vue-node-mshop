@@ -12,12 +12,23 @@ const state = {
 }
 
 const getters = {
-  
+  priceSub:state=>{
+    let sumPrice=0;
+    state.shopcar.forEach(item => {
+      if(item.isSelect==true){
+        sumPrice+=item.selectedSkuComb.price*item.selectedNum
+      }
+    });
+    return sumPrice
+  }
 }
 
 const mutations = {
   setToken(state,token){
     state.token = token
+  },
+  setLogOut(state,user){
+    state.user = user
   },
   setUser(state,user){
     state.user = user
@@ -36,6 +47,10 @@ const mutations = {
     }
     //存储到本地
     localStorage.setItem('shopcar',JSON.stringify(state.shopcar))
+  },
+  updateShopCar(state,newShopCar){
+    state.shopcar = newShopCar
+    localStorage.setItem('shopcar',JSON.stringify(state.shopcar))
   }
 }
 
@@ -48,6 +63,9 @@ const actions = {
   },
   setShopCar({commit},shopcar){
     commit('addShopCar',shopcar)
+  },
+  updateShopCar({commit},newshopcar){
+    commit('updateShopCar',newshopcar)
   }
 }
 

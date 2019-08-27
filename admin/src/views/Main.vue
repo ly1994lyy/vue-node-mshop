@@ -48,8 +48,9 @@
               <el-menu-item index="/shop/list">商家列表</el-menu-item>
               <el-menu-item index="/shop/create">新增商家</el-menu-item>
             </el-menu-item-group>
-            <el-menu-item-group title="分组2">
-              <el-menu-item index="3-3">选项3</el-menu-item>
+            <el-menu-item-group>
+              <template slot="title">订单中心</template>
+              <el-menu-item index="/order/list">订单列表</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
           <el-submenu index="5">

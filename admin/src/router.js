@@ -45,6 +45,7 @@ export default new Router({
         {path:'/good/list',name:'goodlist',component:()=>import('../src/components/Good/GoodList.vue')},
         {path:'/good/create',name:'goodcreate',component:()=>import('../src/components/Good/GoodCreate.vue')},
         {path:'/good/edit/:id',name:'goodupdate',component:()=>import('../src/components/Good/GoodUpdate.vue'),props:true},
+        {path:'/order/list',name:'orderlist',component:()=>import('./components/Order/OrderList.vue')}
       ]
     },
   ]
