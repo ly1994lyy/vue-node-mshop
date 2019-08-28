@@ -30,7 +30,7 @@
     </van-cell-group>
 
     <van-cell-group>
-      <van-cell icon="points" title="我的地址" is-link />
+      <van-cell icon="points" title="我的地址" is-link to="/myaddress" />
       <van-cell icon="gold-coin-o" title="我的收藏" is-link />
       <van-cell icon="gift-o" title="我的优惠券" is-link />
     </van-cell-group>

@@ -37,6 +37,21 @@ export default new Router({
       component:()=>import('./views/ShopCar.vue')
     },
     {
+      path:'/ordersure',
+      name:'ordersure',
+      component:()=>import('./views/OrderSure.vue')
+    },
+    {
+      path:'/myaddress',
+      name:'myaddress',
+      component:()=>import('./views/Address.vue')
+    },
+    {
+      path:'/addressadd',
+      name:'addressadd',
+      component:()=>import('./views/AddressAdd.vue')
+    },
+    {
       path: '/login',
       name: 'login',
       component:()=>import('./views/Login.vue')

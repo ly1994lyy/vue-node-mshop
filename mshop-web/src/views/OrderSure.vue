@@ -1,25 +1,15 @@
 <template>
   <div>
-    <van-nav-bar fixed title="购物车" left-arrow>
+    <van-nav-bar fixed title="确认订单" left-arrow>
       <van-icon name="ellipsis" slot="right" />
     </van-nav-bar>
-    <div v-if="!user" class="login-container">
-      <img
-        src="//img11.360buyimg.com/jdphoto/s180x180_jfs/t18163/292/540553659/74408/adeb7463/5a93c51cN3bb5e37b.png"
-      />
-      <p>登录后可同步购物车中商品</p>
-      <van-button
-        class="login-button"
-        @click="$router.push('/login')"
-        plain
-        hairline
-        type="danger"
-      >登录</van-button>
+    <div class="order-address">
+        <div class="user-name"><p>李月</p><p>188559712288</p></div>
+        <div class="user-address van-ellipsis">江苏省南京市雨花台区就开始登记卡山东矿机看</div>
     </div>
-    <div v-else class="shopcar-container">
+    <div class="shopcar-container">
       <van-cell-group>
         <van-cell v-for="(item,i) in model" ref="shopcarvell" :key="item.select._id">
-          <van-switch v-model="shopcar[i].isSelect" size="14px" @change="updateSelect" />
           <img :src="item.image" />
           <div class="good-content">
             <div class="good-title">{{item.goodname}}</div>
@@ -29,14 +19,14 @@
               <p v-if="item.select[0].s3">{{item.select[0].s3.name}}</p>
             </div>
             <div class="good-select"> 
-              <p class="good-price">￥{{shopcar[i].selectedSkuComb.price/100}}</p>
-              <p class="good-num">x {{shopcar[i].selectedNum}}</p>
+              <p class="good-price">￥{{newShopCar[i].selectedSkuComb.price/100}}</p>
+              <p class="good-num">x {{newShopCar[i].selectedNum}}</p>
             </div>
           </div>
         </van-cell>
       </van-cell-group>
     </div>
-    <van-submit-bar v-if="user" :price="priceSub" button-text="去结算" @submit="onSubmit" />
+    <van-submit-bar v-if="user" :price="priceSub" button-text="确认订单" @submit="onSubmit" />
   </div>
 </template>
 
@@ -46,29 +36,35 @@ export default {
     return {
       model: [],
       ids: [],
+      newShopCar:[]
     };
   },
   methods: {
     async getShopCar() {
       var carList = [];
-      this.shopcar.map(item => {
+      const surelist = this.shopcar.filter(item=>{
+          return item.isSelect==true
+      })
+      this.newShopCar = surelist
+      surelist.map(item => {
         carList.push(item.goodsId);
       });
       this.ids = carList;
       const res = await this.$http.get(`/shopcarlist/${this.ids}`);
-      for (let i = 0; i < this.shopcar.length; i++) {
+      for (let i = 0; i < surelist.length; i++) {
         let shopCarList = {};
         shopCarList.goodId = res.data[i]._id
         shopCarList.goodname = res.data[i].name;
         shopCarList.select = res.data[i].sku.list.filter(item => {
-          return item._id == this.shopcar[i].selectedSkuComb.id;
+          return item._id == surelist[i].selectedSkuComb.id;
         });
         shopCarList.image = res.data[i].img;
         this.model.push(shopCarList);
       }
+      console.log(this.model)
     },
     onSubmit() {
-      this.$router.push('/ordersure')
+      console.log('sd')
     },
     updateSelect() {
       this.$store.dispatch('updateShopCar',this.shopcar)
@@ -92,33 +88,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.login-container {
-  width: 100%;
-  height: 375px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #eee;
-  img {
-    width: 90px;
-    height: 90px;
-  }
-  p {
-    color: rgba(51, 51, 51, 0.66);
-    font-size: 16px;
-    margin: 10px 0;
-  }
-  .login-button {
-    line-height: 30px;
-    width: 60px;
-    height: 30px;
-  }
+.shopcar-container {
+  margin-bottom: 50px;
 }
 
-.shopcar-container {
-  margin-top: 45px;
-  margin-bottom: 50px;
+.order-address{
+    width: 100%;
+    height: 10vh;
+    margin-top: 45px;
+    background-color: #eee;
+    font-size: 15px;
+    .user-name{
+        display: flex;
+        p{
+            margin-top: 5px
+        }
+    }
+    .user-address{
+        margin-top: 5px;
+    }
 }
 
 .van-cell {

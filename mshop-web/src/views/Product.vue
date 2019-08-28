@@ -143,6 +143,7 @@ export default {
     },
     onAddCartClicked(skuData) {
       skuData.isSelect = true
+      skuData.goodname = this.model.name
       console.log(skuData)
       this.$store.dispatch('setShopCar',skuData)
       this.$notify('成功加入购物车');

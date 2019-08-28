@@ -6,6 +6,7 @@ module.exports = app => {
     const SecCategory = require('../../models/SecondCategory')
     const Good = require('../../models/Good')
     const User = require('../../models/User')
+    const Order = require('../../models/Order')
     const jwt = require('jsonwebtoken')
 
     router.get('/category',async(req,res)=>{
@@ -25,7 +26,6 @@ module.exports = app => {
 
     router.get('/good/:id',async(req,res)=>{
         const model = await Good.findById(req.params.id).populate('shop rule.rulename sku.tree.v').lean()
-        console.log(req.params.id)
         res.send(model)
     })
 
@@ -33,6 +33,17 @@ module.exports = app => {
         const model = await User.create(req.body)
         res.send(model)
     })
+
+    router.get('/user/:id',async(req,res)=>{
+        const model = await User.findById(req.params.id).lean()
+        res.send(model)
+    })
+
+    router.put('/addressadd/:id',async(req,res)=>{
+        const model = await User.findById(req.params.id).update({_id:req.params.id},{$push:{address:req.body}})
+        res.send(model)
+    })
+
 
     router.get('/shopcarlist/:ids',async (req,res)=>{
         const shopList = req.params.ids.split(',')
@@ -60,6 +71,11 @@ module.exports = app => {
         const token = jwt.sign({id:user._id,username:user.username},app.get('secret'))
         res.send({token,user})
     })
+
+    //订单接口
+    // router.post('/order',async(req,res)=>{
+    //     const res = await Order.create(req.body)
+    // })
 
     app.use('/api/web',router)
 }
