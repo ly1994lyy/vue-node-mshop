@@ -40,10 +40,10 @@ export default {
   },
   methods: {
     onClickLeft() {
-      Toast("返回");
+      this.$toast.success('返回')
     },
     async addUser(){
-      const res = await this.$http.post('/register',{
+      await this.$http.post('/register',{
         username:this.username,
         password:this.password
       })

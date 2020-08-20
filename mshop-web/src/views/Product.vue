@@ -76,7 +76,7 @@
 <script>
 export default {
   props: {
-    id: ""
+    id: String
   },
   data() {
     return {

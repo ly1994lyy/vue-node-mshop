@@ -212,11 +212,11 @@ export default {
     };
   },
   props:{
-      id:''
+      id:String
   },
   methods: {
     async update() {
-      const res = await this.$http.put(`/good/${this.id}`, this.model);
+      await this.$http.put(`/good/${this.id}`, this.model);
       this.$message({
         type: "success",
         message: "更新成功"

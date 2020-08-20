@@ -25,7 +25,7 @@ export default {
     },
     methods: {
         async add() {
-            const  res = await this.$http.post('/category',this.model)
+            await this.$http.post('/category',this.model)
             this.$message({
                 type:"success",
                 message:'添加成功'

@@ -69,7 +69,7 @@
 <script>
 export default {
     props:{
-        id:''
+        id:{type:String}
     },
     data() {
         return {
@@ -80,7 +80,7 @@ export default {
     },
     methods: {
         async update() {
-            const  res = await this.$http.put(`/shop/${this.id}`,this.model)
+            await this.$http.put(`/shop/${this.id}`,this.model)
             this.$message({
                 type:"success",
                 message:'更新成功'
