@@ -6,6 +6,7 @@ import { CommonModule } from 'libs/common';
 import { ItemcategoryModule } from './itemcategory/itemcategory.module';
 import { SecondcategoryModule } from './secondcategory/secondcategory.module';
 import { MulterModule } from '@nestjs/platform-express';
+import { ShopModule } from './shop/shop.module';
 
 @Module({
   imports: [
@@ -15,7 +16,8 @@ import { MulterModule } from '@nestjs/platform-express';
     SecondcategoryModule,
     MulterModule.register({
       dest:'uploads'
-    })
+    }),
+    ShopModule
   ],
   controllers: [AppController],
   providers: [AppService],

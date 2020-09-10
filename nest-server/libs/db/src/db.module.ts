@@ -1,29 +1,35 @@
 import { Module, Global } from '@nestjs/common';
 import { DbService } from './db.service';
-import { TypegooseModule } from 'nestjs-typegoose'
+import { TypegooseModule } from 'nestjs-typegoose';
 import { Category } from './models/category.model';
 import { ItemCategory } from './models/ItemCategory.model';
 import { SecondCategory } from './models/SecondCategory.model';
+import { Shop } from './models/shop.model';
 
-const models = TypegooseModule.forFeature([Category,ItemCategory,SecondCategory])
+const models = TypegooseModule.forFeature([
+  Category,
+  ItemCategory,
+  SecondCategory,
+  Shop
+]);
 
 @Global()
 @Module({
-  imports:[
+  imports: [
     TypegooseModule.forRootAsync({
-      useFactory(){
+      useFactory() {
         return {
-          uri:process.env.DB,
+          uri: process.env.DB,
           useCreateIndex: true,
           useNewUrlParser: true,
           useFindAndModify: false,
-          useUnifiedTopology: true
-        }
-      }
+          useUnifiedTopology: true,
+        };
+      },
     }),
-    models
+    models,
   ],
   providers: [DbService],
-  exports: [DbService,models],
+  exports: [DbService, models],
 })
 export class DbModule {}

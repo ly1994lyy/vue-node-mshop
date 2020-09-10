@@ -97,17 +97,17 @@ export default new Router({
         {
           path: "/shop/list",
           name: "shoplist",
-          component: () => import("../src/components/Shop/ShopList.vue"),
+          component: () => import("./views/ShopList.vue"),
         },
         {
           path: "/shop/create",
           name: "shopcreate",
-          component: () => import("../src/components/Shop/ShopCreate.vue"),
+          component: () => import("./views/ShopEdit.vue"),
         },
         {
           path: "/shop/edit/:id",
           name: "shopupdate",
-          component: () => import("../src/components/Shop/ShopUpdate.vue"),
+          component: () => import("./views/ShopEdit.vue"),
           props: true,
         },
         {

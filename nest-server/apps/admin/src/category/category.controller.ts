@@ -11,5 +11,8 @@ import { ApiTags } from '@nestjs/swagger';
 })
 @ApiTags('总分类')
 export class CategoryController {
-    @InjectModel(Category) private model:ReturnModelType<typeof Category>
+    constructor(
+        @InjectModel(Category) private model:ReturnModelType<typeof Category>
+    ){}
+    
 }

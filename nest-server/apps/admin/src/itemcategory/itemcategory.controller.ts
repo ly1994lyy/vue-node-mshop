@@ -11,5 +11,8 @@ import { ReturnModelType } from '@typegoose/typegoose';
 })
 @ApiTags('一级分类')
 export class ItemcategoryController {
-    @InjectModel(ItemCategory) private model:ReturnModelType<typeof ItemCategory>
+    constructor(
+        @InjectModel(ItemCategory) private model:ReturnModelType<typeof ItemCategory>
+    ){}
+    
 }

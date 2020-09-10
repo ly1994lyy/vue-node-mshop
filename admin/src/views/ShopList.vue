@@ -12,7 +12,7 @@
                         <span>{{ props.row.tips }}</span>
                     </el-form-item>
                     <el-form-item label="开店时间">
-                        <span>{{ props.row.createtiem | dataFormat}}</span>
+                        <span>{{ props.row.createtime | dataFormat}}</span>
                     </el-form-item>
                     <el-form-item label="店铺粉丝">
                         <span>{{ props.row.collect }}</span>
@@ -39,6 +39,8 @@
 </template>
 
 <script>
+import { delShop, getShop } from '../api/shop'
+
 export default {
     data() {
         return {
@@ -47,8 +49,8 @@ export default {
     },
     methods: {
         async fetch() {
-            const res = await this.$http.get('/shop')
-            this.model = res.data
+            const {data} = await getShop()
+            this.model = data.data
         },
         async handleDelete(row){
            this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
@@ -56,7 +58,7 @@ export default {
             cancelButtonText: '取消',
             type: 'warning'
             }).then(async() => {
-                await this.$http.delete(`/shop/${row._id}`)
+                await delShop(row._id)
                 this.$message({
                     type: 'success',
                     message: '删除成功!'

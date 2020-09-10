@@ -11,5 +11,8 @@ import { ReturnModelType } from '@typegoose/typegoose';
     model:SecondCategory
 })
 export class SecondcategoryController {
-    @InjectModel(SecondCategory) private model:ReturnModelType<typeof SecondCategory>
+    constructor(
+        @InjectModel(SecondCategory) private model:ReturnModelType<typeof SecondCategory>
+    ){}
+    
 }
