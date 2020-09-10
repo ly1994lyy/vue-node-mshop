@@ -27,6 +27,9 @@
 </template>
 
 <script>
+import { getCate } from '../api/category';
+import { createItemCate, getItemCateById, updateItemCate } from '../api/itemCategory'
+
 export default {
     props:{
       id:String
@@ -34,30 +37,32 @@ export default {
     data() {
         return {
             model: {},
-            CategoryList:[]
+            CategoryList:[],
         }
     },
     methods: {
         async update() {
-            await this.$http.put(`/itemcategory/${this.id}`,this.model)
-            this.$message({
-                type:"success",
-                message:'更新成功'
-            })
+            if(this.id){
+                await updateItemCate(this.id,this.model)
+                this.$message.success('更新成功')
+            }else{
+                await createItemCate(this.model)
+                this.$message.success('新建成功')
+            }
             this.$router.push('/itemcategory/list')
         },
         async fetch(){
-          const res = await this.$http.get(`/itemcategory/${this.id}`)
+          const res = await getItemCateById(this.id)
           this.model = res.data
         },
         async fetchCategory(){
-          const res = await this.$http.get('/category')
-          this.CategoryList = res.data
+          const {data} = await getCate()
+          this.CategoryList = data.data
         }
     },
     created () {
       this.fetchCategory();
-      this.fetch();
+      this.id && this.fetch();
     },
 };
 </script>

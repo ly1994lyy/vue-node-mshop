@@ -3,7 +3,7 @@ import './plugins/axios'
 import App from './App.vue'
 import router from './router'
 import './plugins/element.js'
-import http from './http'
+import http from './utils/http'
 import '../src/sty.scss'
 import dayjs from 'dayjs'
 

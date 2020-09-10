@@ -6,11 +6,10 @@
       </div>
       <el-table :data="model">
         <el-table-column prop="_id" label="ID"></el-table-column>
-        <el-table-column prop="category.name" label="上级分类名称"></el-table-column>
-        <el-table-column prop="name" label="一级分类名称"></el-table-column>
+        <el-table-column prop="name" label="总分类名称"></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button size="mini" @click="$router.push(`/itemcategory/edit/${scope.row._id}`)">编辑</el-button>
+            <el-button size="mini" @click="$router.push(`/category/edit/${scope.row._id}`)">编辑</el-button>
             <el-button size="mini" type="danger" @click="handleDelete(scope.row)">删除</el-button>
           </template>
         </el-table-column>
@@ -20,6 +19,8 @@
 </template>
 
 <script>
+import {getCate,delCate} from '../api/category'
+
 export default {
     data() {
         return {
@@ -28,8 +29,8 @@ export default {
     },
     methods: {
         async fetch() {
-            const res = await this.$http.get('/itemcategory')
-            this.model = res.data
+            const {data} =await getCate()
+            this.model = data.data
         },
         async handleDelete(row){
            this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
@@ -37,7 +38,7 @@ export default {
             cancelButtonText: '取消',
             type: 'warning'
             }).then(async() => {
-                await this.$http.delete(`/itemcategory/${row._id}`)
+                await delCate(row._id)
                 this.$message({
                     type: 'success',
                     message: '删除成功!'
