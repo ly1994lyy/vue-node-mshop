@@ -15,6 +15,7 @@ async function bootstrap() {
     .setTitle('商城后台管理API')
     .setDescription('供商城项目后台调用')
     .setVersion('1.0')
+    .addBearerAuth()
     .addTag('m-shop')
     .build();
   const document = SwaggerModule.createDocument(app, options);

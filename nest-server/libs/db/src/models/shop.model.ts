@@ -23,7 +23,7 @@ export class Shop {
     createtime:Date
 
     @prop()
-    banner:[Object]
+    banner:any
 
     @prop({min:0,default:0})
     collect:number

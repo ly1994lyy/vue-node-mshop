@@ -7,6 +7,7 @@ import { ItemcategoryModule } from './itemcategory/itemcategory.module';
 import { SecondcategoryModule } from './secondcategory/secondcategory.module';
 import { MulterModule } from '@nestjs/platform-express';
 import { ShopModule } from './shop/shop.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -17,7 +18,8 @@ import { ShopModule } from './shop/shop.module';
     MulterModule.register({
       dest:'uploads'
     }),
-    ShopModule
+    ShopModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

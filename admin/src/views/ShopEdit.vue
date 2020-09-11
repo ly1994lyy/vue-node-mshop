@@ -24,7 +24,7 @@
         </el-form-item>
         <el-form-item  label="开店时间">
            <el-date-picker
-            v-model="model.createtiem"
+            v-model="model.createtime"
             type="date"
             placeholder="选择日期"
             format="yyyy 年 MM 月 dd 日"
@@ -76,7 +76,7 @@ export default {
     data() {
         return {
             model: {
-                banner:[]
+              banner:[]
             },
           }
     },
@@ -89,6 +89,7 @@ export default {
                     message:'更新成功'
                 })
             }else{
+              console.log(this.model)
                 await createShop(this.model)
                 this.$message.success('创建成功')
             }
@@ -102,14 +103,16 @@ export default {
             this.$set(this.model,'bgimg',res.url)
         },
         afterUploadBanner(res){
-            this.model.banner.push(res.url)
+            this.model.banner.push(res)
         },
         async fetch(){
-          const {data} = await getShopById(this.id)
-          this.model = data
+          const res = await getShopById(this.id)
+          console.log(res)
+          this.model = res.data
         },
         async handleRemove(file, fileList) {
-          console.log(file, fileList);
+          this.model.banner = fileList
+          console.log(fileList);
         },
         handlePreview(file) {
           console.log(file);
