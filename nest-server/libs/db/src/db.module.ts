@@ -6,13 +6,15 @@ import { ItemCategory } from './models/ItemCategory.model';
 import { SecondCategory } from './models/SecondCategory.model';
 import { Shop } from './models/shop.model';
 import { AdminUser } from './models/adminUser.model';
+import { Good } from './models/good.model';
 
 const models = TypegooseModule.forFeature([
   Category,
   ItemCategory,
   SecondCategory,
   Shop,
-  AdminUser
+  AdminUser,
+  Good
 ]);
 
 @Global()
