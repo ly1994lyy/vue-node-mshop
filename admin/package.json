@@ -27,6 +27,7 @@
     "sass-loader": "^9.0.3",
     "vue-cli-plugin-axios": "0.0.4",
     "vue-cli-plugin-element": "^1.0.1",
+    "vue-particles": "^1.0.9",
     "vue-template-compiler": "^2.6.10"
   }
 }

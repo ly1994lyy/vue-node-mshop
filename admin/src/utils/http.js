@@ -1,19 +1,20 @@
-import axios from 'axios'
-import { Loading } from 'element-ui';
+import axios from 'axios';
+import { Loading, Message } from 'element-ui';
+import router from '../router'
 
 const http = axios.create({
     baseURL:'http://localhost:3008'
 })
 
 let loading;
-function startLoading() {    //使用Element loading-start 方法
+function startLoading() {
   loading = Loading.service({
     lock: true,
     text: '拼命加载中...',
     background:'rgba(0,0,0,0.7)',
   })
 }
-function endLoading() {    //使用Element loading-close 方法
+function endLoading() {
   loading.close()
 }
 
@@ -29,6 +30,15 @@ http.interceptors.response.use(res=>{
     return res
 },error=>{
     endLoading()
+    if(error.response.status===401){
+        if(error.response.data.message==='Unauthorized'){
+            Message.error('对不起，请您先登录!')
+        }else{
+            Message.error(error.response.data.message)
+        }
+        router.push('/login')
+    }
+    console.log(error.response)
     return Promise.reject(error)
 })
 

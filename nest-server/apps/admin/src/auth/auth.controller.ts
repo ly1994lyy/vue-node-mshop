@@ -11,7 +11,7 @@ export class AuthController {
         private jwtService:JwtService
     ){}
 
-    @Post()
+    @Post('login')
     @UseGuards(AuthGuard('local'))
     async login(@Body() loginDto:LoginDto,@Req() req){
         return {

@@ -1,5 +1,5 @@
-import { get } from '../utils/http'
+import { post } from '../utils/http'
 
 export const login = (data) =>{
-    return get('login',data)
+    return post('auth/login',data)
 }

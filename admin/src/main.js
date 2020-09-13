@@ -5,6 +5,9 @@ import './plugins/element.js'
 import http from './utils/http'
 import '../src/sty.scss'
 import dayjs from 'dayjs'
+import VueParticles from 'vue-particles'  
+
+Vue.use(VueParticles)  
 
 Vue.config.productionTip = false
 
