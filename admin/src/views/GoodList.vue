@@ -38,6 +38,8 @@
 </template>
 
 <script>
+import { delGood, getGood } from '../api/good'
+
 export default {
     data() {
         return {
@@ -46,8 +48,8 @@ export default {
     },
     methods: {
         async fetch() {
-            const res = await this.$http.get('/good')
-            this.model = res.data
+            const {data} = await getGood()
+            this.model = data.data
         },
         async handleDelete(row){
            this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
@@ -55,7 +57,7 @@ export default {
             cancelButtonText: '取消',
             type: 'warning'
             }).then(async() => {
-                await this.$http.delete(`/good/${row._id}`)
+                await delGood(row._id)
                 this.$message({
                     type: 'success',
                     message: '删除成功!'

@@ -20,6 +20,9 @@ function endLoading() {
 
 http.interceptors.request.use(config=>{
     startLoading()
+    if(localStorage.adminToken){
+        config.headers.Authorization = 'Bearer '+localStorage.adminToken
+    }
     return config
 },error=>{
     return Promise.reject(error)
@@ -38,7 +41,6 @@ http.interceptors.response.use(res=>{
         }
         router.push('/login')
     }
-    console.log(error.response)
     return Promise.reject(error)
 })
 
@@ -57,5 +59,3 @@ export const put = (url,data) =>{
 export const del = (url) =>{
     return http.delete(url)
 }
-
-export default http

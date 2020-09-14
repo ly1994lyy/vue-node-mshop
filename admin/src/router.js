@@ -113,17 +113,17 @@ export default new Router({
         {
           path: "/good/list",
           name: "goodlist",
-          component: () => import("../src/components/Good/GoodList.vue"),
+          component: () => import("./views/GoodList.vue"),
         },
         {
           path: "/good/create",
           name: "goodcreate",
-          component: () => import("../src/components/Good/GoodCreate.vue"),
+          component: () => import("./views/GoodEdit.vue"),
         },
         {
           path: "/good/edit/:id",
           name: "goodupdate",
-          component: () => import("../src/components/Good/GoodUpdate.vue"),
+          component: () => import("./views/GoodEdit.vue"),
           props: true,
         },
         {

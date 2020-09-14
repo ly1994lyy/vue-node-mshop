@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form label-width="130px" @submit.native.prevent="add">
+    <el-form label-width="130px" @submit.native.prevent="update">
       <el-tabs type="border-card">
         <el-tab-pane label="基础信息">
           <el-form-item label="商品名称">
@@ -12,7 +12,7 @@
           <el-form-item label="商品缩略图">
           <el-upload
             class="avatar-uploader"
-            :action="$http.defaults.baseURL + '/upload'"
+            action="http://localhost:3008/upload"
             :show-file-list="false"
             :on-success="imgUpload"
           >
@@ -49,10 +49,11 @@
           <el-form-item label="商品图片(轮播)">
             <el-upload
               class="avatar-uploader"
-              :action="$http.defaults.baseURL + '/upload'"
+              action="http://localhost:3008/upload"
               list-type="picture-card"
               :on-success="afterUploadBanner"
               :on-remove="handleRemove"
+              :file-list="model.icon"
             >
               <i class="el-icon-plus avatar-uploader-icon" style="line-height:100px"></i>
             </el-upload>
@@ -66,7 +67,7 @@
           <el-form-item label='首页轮播图片' v-if="model.isbanner">
             <el-upload
               class="avatar-uploader"
-              :action="$http.defaults.baseURL + '/upload'"
+              action="http://localhost:3008/upload"
               :show-file-list="false"
               :on-success="afterUpload"
             >
@@ -75,7 +76,7 @@
             </el-upload>
           </el-form-item>
         </el-tab-pane>
-        <el-tab-pane label="商品规格">
+        <!-- <el-tab-pane label="商品规格">
           <el-form-item label="卡片默认标题">
             <el-input v-model="model.goods.title"></el-input>
           </el-form-item>
@@ -178,7 +179,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-        </el-tab-pane>
+        </el-tab-pane> -->
       </el-tabs>
       <el-form-item>
         <el-button type="primary" native-type="submit" style="margin-top:10px;margin-left:20px">保存</el-button>
@@ -188,15 +189,19 @@
 </template>
 
 <script>
+import { createGood, getGoodById, updateGood } from '../api/good'
+import { getSecondCate } from '../api/secondCategoty';
+import { getShop } from '../api/shop';
+
 export default {
   data() {
     return {
       model: {
         icon: [],
-        sku:{
-          tree:[],
-          list:[]
-        },
+        // rule: [],
+        // sku:{
+        //   tree:[],
+        // },
         goods:{
           title:'',
           picture:''
@@ -204,62 +209,79 @@ export default {
         isbanner: false
       },
       shopList: [],
-      ruleItemList:[],
+    //   ruleList: [],
       categoryList:[],
-      kslist:["s1","s2","s3"]
+    //   ruleItemList:[],
+    //   kslist:["s1","s2","s3"]
     };
   },
+  props:{
+      id:String
+  },
   methods: {
-    async add() {
-      await this.$http.post("/good", this.model);
-      this.$message({
-        type: "success",
-        message: "添加成功"
-      });
+    async update() {
+        if(this.id){
+            await updateGood(this.id,this.model)
+            this.$message({
+                type: "success",
+                message: "更新成功"
+            });
+        }else{
+            await createGood(this.model)
+            this.$message.success('新建成功!')
+        }
+      
       this.$router.push("/good/list");
-    },
-    addTree(){
-      if(this.model.sku.tree.length<3){
-        this.model.sku.tree.push({})
-      }else{
-        this.$message({
-          type:'error',
-          message:'最多只能添加三个规格'
-        })
-      }
     },
     afterUploadBanner(res) {
       this.model.icon.push(res);
     },
+    // addTree(){
+    //   if(this.model.sku.tree.length<3){
+    //     this.model.sku.tree.push({})
+    //   }else{
+    //     this.$message({
+    //       type:'error',
+    //       message:'最多只能添加三个规格'
+    //     })
+    //   }
+    // },
     handleRemove(file, fileList) {
       console.log(file, fileList);
+    },
+    async fetch(){
+        const res = await getGoodById(this.id)
+        this.model = res.data
+    },
+    async fetchCategory() {
+      const {data} = await getSecondCate()
+      this.categoryList = data.data;
+    },
+    async fetchShop() {
+      const {data} = await getShop()
+      this.shopList = data.data;
+    },
+    // async fetchRule() {
+    //   const res = await this.$http.get("/rule");
+    //   this.ruleList = res.data;
+    // },
+    // async fetchRuleItem() {
+    //   const res = await this.$http.get("/ruleitem");
+    //   this.ruleItemList = res.data;
+    // },
+    imgUpload(res){
+        this.$set(this.model,'img',res.url)
     },
     goodsPicture(res){
       this.$set(this.model.goods,'picture',res.url)
     },
-    async fetchShop() {
-      const res = await this.$http.get("/shop");
-      this.shopList = res.data;
-    },
-    async fetchCategory() {
-      const res = await this.$http.get("/secondcategory");
-      this.categoryList = res.data;
-    },
-    async fetchRuleItem() {
-      const res = await this.$http.get("/ruleitem");
-      this.ruleItemList = res.data;
-    },
-    afterUpload(res){
-        this.$set(this.model,'bannerimg',res.url)
-    },
-    imgUpload(res){
-        this.$set(this.model,'img',res.url)
-    }
   },
   created() {
+    this.id && this.fetch();
     this.fetchShop();
-    this.fetchRuleItem();
-    this.fetchCategory()
+    //this.fetchRule();
+    this.fetchCategory();
+    //this.fetchRuleItem()
   }
 };
 </script>

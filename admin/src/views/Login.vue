@@ -30,10 +30,11 @@ export default {
   },
   methods: {
     async login() {
-      await login({
+      const res = await login({
         username: this.model.username,
         password: this.model.password,
       });
+      localStorage.setItem('adminToken',res.data.token)
       this.$router.push("/");
       this.$message.success("登录成功!");
     },

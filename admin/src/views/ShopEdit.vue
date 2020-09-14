@@ -14,7 +14,7 @@
         <el-form-item label="商家logo">
           <el-upload
             class="avatar-uploader"
-            :action="$http.defaults.baseURL + '/upload'"
+            action="http://localhost:3008/upload"
             :show-file-list="false"
             :on-success="afterUpload"
           >
@@ -34,7 +34,7 @@
         <el-form-item label="商家背景图片">
           <el-upload
             class="avatar-uploader"
-            :action="$http.defaults.baseURL + '/upload'"
+            action="http://localhost:3008/upload"
             :show-file-list="false"
             :on-success="afterUploadLogo"
           >
@@ -45,7 +45,7 @@
         <el-form-item label="商家主页轮播图">
           <el-upload
             class="avatar-uploader"
-            :action="$http.defaults.baseURL + '/upload'"
+            action="http://localhost:3008/upload"
             list-type="picture-card"
             :file-list="model.banner"
             :on-success="afterUploadBanner"
