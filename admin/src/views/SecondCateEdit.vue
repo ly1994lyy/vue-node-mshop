@@ -11,7 +11,7 @@
         <el-form-item label="分类图标">
           <el-upload
             class="avatar-uploader"
-            :action="$http.defaults.baseURL + '/upload'"
+            action="http://localhost:3008/upload"
             :show-file-list="false"
             :on-success="afterUpload"
           >

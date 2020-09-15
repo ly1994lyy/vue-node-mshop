@@ -29,7 +29,11 @@ export default {
     },
     methods: {
         async fetch() {
-            const {data} =await getCate()
+            const {data} =await getCate({
+              query:{
+                limit:100
+              }
+            })
             this.model = data.data
         },
         async handleDelete(row){
