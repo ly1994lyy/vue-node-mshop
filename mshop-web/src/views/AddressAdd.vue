@@ -14,6 +14,7 @@
 
 <script>
 import areaList from "../plugins/area.js";
+import {Toast} from 'vant' 
 
 export default {
   data() {
@@ -28,7 +29,7 @@ export default {
   },
   methods: {
     async onSave(content) {
-      const res = await this.$http.put(`/addressadd/${this.user.id}`,content)
+      await this.$http.put(`/addressadd/${this.user.id}`,content)
     },
     onDelete() {
       Toast("delete");

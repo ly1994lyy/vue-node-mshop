@@ -34,6 +34,9 @@
 </template>
 
 <script>
+import {getCate} from '../api/category'
+import {getItemCateById} from '../api/itemCategory'
+
 export default {
   data() {
     return {
@@ -45,12 +48,14 @@ export default {
   },
   methods: {
     async fetchCategory() {
-      const res = await this.$http.get("/category");
-      this.categoryList = res.data;
+      const {data} = await getCate({
+        query:{limit:100}
+      })
+      this.categoryList = data.data;
     },
     async add(index) {
       const id = this.categoryList[index]._id;
-      const res = await this.$http.get(`/itemcategory/${id}`);
+      const res = await getItemCateById(id)
       this.itemCategoryList = res.data;
     },
   },

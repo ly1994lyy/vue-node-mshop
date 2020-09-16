@@ -15,7 +15,7 @@ export default {
     }else{
       this.$store.dispatch('setToken','')
       this.$store.dispatch('setUser',null)
-    };
+    }
   },
 }
 </script>

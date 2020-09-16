@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import jwt_decode from 'jwt-decode'
+import {Toast} from 'vant' 
 export default {
   data() {
     return {
@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     onClickLeft() {
-      Toast("返回");
+      Toast.success("返回");
     },
     async loginUser(){
       const res = await this.$http.post('/login',{

@@ -14,27 +14,43 @@
           </template>
         </el-table-column>
       </el-table>
+      <pagination :totalNum="total" @handle="fetch"></pagination>
     </el-card>
   </div>
 </template>
 
 <script>
 import {getCate,delCate} from '../api/category'
+import Pagination from '../components/Pagination'
 
 export default {
     data() {
         return {
-            model: []
+            model: [],
+            total:0,
         }
     },
+    components:{
+      Pagination,
+    },
     methods: {
-        async fetch() {
+        async fetch(pageData) {
+          if(pageData){
+            const {limit,page}=pageData
             const {data} =await getCate({
               query:{
-                limit:100
+                limit,
+                page
               }
             })
             this.model = data.data
+            this.total = data.total
+          }else{
+            const {data} =await getCate()
+            this.model = data.data
+            this.total = data.total
+          }
+            
         },
         async handleDelete(row){
            this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {

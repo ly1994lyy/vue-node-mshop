@@ -19,9 +19,11 @@
 </template>
 
 <script>
+import { getSecondCateById } from '../api/secondCategoty'
+
 export default {
   props: {
-    id: ""
+    id:String
   },
   data() {
     return {
@@ -31,7 +33,7 @@ export default {
   },
   methods: {
     async fetch() {
-      const res = await this.$http.get(`/secondcategory/${this.id}`);
+      const res = await getSecondCateById(this.id)
       this.model = res.data;
     },
     itemInfo(val){
