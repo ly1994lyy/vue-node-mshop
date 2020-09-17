@@ -7,6 +7,7 @@ import { SecondCategory } from './models/SecondCategory.model';
 import { Shop } from './models/shop.model';
 import { AdminUser } from './models/adminUser.model';
 import { Good } from './models/good.model';
+import { Rule } from './models/Rule.model'
 
 const models = TypegooseModule.forFeature([
   Category,
@@ -14,7 +15,8 @@ const models = TypegooseModule.forFeature([
   SecondCategory,
   Shop,
   AdminUser,
-  Good
+  Good,
+  Rule,
 ]);
 
 @Global()

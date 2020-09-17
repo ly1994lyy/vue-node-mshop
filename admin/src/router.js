@@ -81,7 +81,7 @@ export default new Router({
         {
           path: "/ruleitem/list",
           name: "ruleitemlist",
-          component: () => import("../src/components/Rule/RuleItemList.vue"),
+          component: () => import("./views/RuleItemEdit.vue"),
         },
         {
           path: "/ruleitem/create",

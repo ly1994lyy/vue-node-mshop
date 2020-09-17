@@ -4,10 +4,9 @@ import router from './router'
 import store from './store'
 import './plugins/vant'
 import dayjs from 'dayjs'
-
-Vue.config.productionTip = false
 import '../src/sty.scss'
 
+Vue.config.productionTip = false
 
 Vue.filter('dateFomat',(val)=>{
   return dayjs(val).format('YY-MM-DD')
